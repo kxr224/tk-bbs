@@ -16,10 +16,10 @@
   </mt-tab-item>
   
 </mt-tabbar>
+
     <router-view/>
   </div>
 </template>
-
 <script>
 import index from '@/views/index.vue'
 import mine from '@/views/mine.vue'
@@ -70,5 +70,12 @@ export default {
     height: 50px;
     text-align: center;
     line-height: 46px;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 </style>
