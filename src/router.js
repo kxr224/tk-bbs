@@ -5,7 +5,7 @@ import theme from './components/theme.vue'
 import recomend from './components/recomend.vue'
 import login from './views/login.vue'
 import mine from './views/mine.vue'
-
+import search from './views/search.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +40,10 @@ export default new Router({
         {
           path:'/mine',
           component:mine
+        },
+        {
+          path:'/search',
+          component:search
         }
 
   ]

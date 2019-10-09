@@ -1,25 +1,24 @@
 <template>
     <div>
-     
- <router-link to="/search"><input type="text" class="search"></router-link>
- <button class="button">搜索</button>
-<tablist></tablist>
- <transition name="movie-tran"><router-view></router-view></transition>
+      <input type="text" class="search">
+      <button class="button">搜索</button>
+      <div class="history">
+          <ul>
+              <li><span></span></li>
+               
+          </ul>
+      </div>
     </div>
 </template>
 
 <script>
-import tablist from '@/components/tab.vue'
 export default {
-    components:{
-        tablist
-    }
+    
 }
 </script>
 
 <style lang="less">
- 
-.search{
+    .search{
     width:250px;
     height:25px;
     margin-top:5px;
@@ -35,5 +34,4 @@ export default {
     
       
 }
-
 </style>

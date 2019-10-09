@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" >
 
        .tab-list {
   display: flex;
@@ -37,13 +37,19 @@ ul>li{
     font-size:18px;
   
 }
+.tab-list{
 a:-webkit-any-link {
      color: #26a2ff;
     cursor: pointer;
     text-decoration: none
 }
-.router-link-active{
+}
+
+.tab-list{
+    .router-link-active{
   border-bottom:2px solid #26a2ff
+}
+
 }
 
 
