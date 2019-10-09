@@ -1,4 +1,5 @@
 <template>
+
   <div class="main" id="id">
     <h2>bbTalk</h2>
     <mt-field label="用户名" placeholder="请输入用户名" v-model="username" @keyup="check"></mt-field>
@@ -6,6 +7,12 @@
     <mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password" @keyup="check"></mt-field>
     <div class="but">
       <mt-button type="primary" size="large" @click="log">登陆</mt-button>
+
+  
+        <p>没有账号？去<router-link to="/registe">注册</router-link>></p>
+       <a href="http://">忘记密码</a>
+   
+
     </div>
 
     <p class="noNum">

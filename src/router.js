@@ -4,8 +4,14 @@ import index from './views/index.vue'
 import theme from './components/theme.vue'
 import recomend from './components/recomend.vue'
 import login from './views/login.vue'
+import registe from './views/registe.vue'
 import mine from './views/mine.vue'
+
 import search from './views/search.vue'
+
+import publishMsg from './views/publish-msg.vue'
+import msgDetail from './views/Msg-detail.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -38,12 +44,25 @@ export default new Router({
           component:login
         },
         {
+          path:'/registe',
+          component:registe
+        },
+        {
           path:'/mine',
           component:mine
         },
         {
+
           path:'/search',
-          component:search
+          component:search},
+
+          {path:'/publishMsg',
+          component:publishMsg
+        },
+        {
+          path:'/msgDetail',
+          component:msgDetail
+
         }
 
   ]
