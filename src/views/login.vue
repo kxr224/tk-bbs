@@ -2,22 +2,25 @@
 
   <div class="main" id="id">
     <h2>bbTalk</h2>
-    <mt-field label="用户名" placeholder="请输入用户名" v-model="username" @keyup="check"></mt-field>
+    <mt-field label="用户名" placeholder="请输入用户名" v-model="username" @blur.native.capture="checkName">
+        <span class="tip">{{msgName}}</span>
+    </mt-field>
 
-    <mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password" @keyup="check"></mt-field>
+    <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password" @blur.native.capture="checkPassword">
+        <span class="tip">{{msgpassword}}</span>
+    </mt-field>
     <div class="but">
       <mt-button type="primary" size="large" @click="log">登陆</mt-button>
 
   
-        <p>没有账号？去<router-link to="/registe">注册</router-link>></p>
-       <a href="http://">忘记密码</a>
+      
    
 
     </div>
 
     <p class="noNum">
       没有账号？去
-      <a href>注册</a>
+      <router-link to="/registe">注册</router-link>
     </p>
     <a href="http://">忘记密码</a>
   </div>
@@ -28,15 +31,15 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      msgName:'',
+      password: "",
+      msgpassword:'',
     };
   },
   methods: {
     checkName() {
       if (this.username.length == 0) {
-        this.msgName = "用户名不能为空";
-      } else if (this.username.length < 2) {
-        this.msgName = "用户名至少2个字符";
+        this.msgName = "用户名不能为空!";
       } else {
         this.msgName = "";
       }
@@ -44,19 +47,8 @@ export default {
     checkPassword() {
       var word = this.password.trim();
       if (word == "") {
-        this.msgpassword = "密码不能为空";
-      } else {
-        var count = 0;
-        if (/[0-9]/.test(word)) {
-          count++;
-        }
-        if (/[A-Za-z]/.test(word)) {
-          count++;
-        }
-        if (/[^0-9A-Za-z]/.test(word)) {
-          count++;
-        }
-      }
+        this.msgpassword = "密码不能为空!";
+      } 
     },
     log(){
         
@@ -79,4 +71,10 @@ export default {
 .noNum {
   margin-top: 50px;
 }
+.tip{
+        color:red;
+        font-size:13px;
+    }
+   
+
 </style>

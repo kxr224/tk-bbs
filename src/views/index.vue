@@ -2,7 +2,7 @@
     <div>
      
  <router-link to="/search"><input type="text" class="search"></router-link>
- <button class="button">搜索</button>
+<mt-button type="primary" size="small">搜索</mt-button>
 <tablist></tablist>
  <transition name="movie-tran"><router-view></router-view></transition>
     </div>

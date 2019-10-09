@@ -1,13 +1,24 @@
 <template>
     <div>
+<mt-header title="搜索帖子或主题">
+  <router-link to="/" slot="left">
+    <mt-button icon="back">返回</mt-button>
+  </router-link>
+  </mt-header>
+
       <input type="text" class="search">
-      <button class="button">搜索</button>
+      <mt-button type="primary" size="small" >搜索</mt-button>
       <div class="history">
           <ul>
-              <li><span></span></li>
+              <li>搜索历史</li>
                
           </ul>
-      </div>
+       </div>
+       <div class="list">
+           <ul>
+               <li></li>
+           </ul>
+       </div>
     </div>
 </template>
 
@@ -26,12 +37,5 @@ export default {
      border: 1px solid
 
 }
-.button{
-    width:50px;
-    height:30px;
-    margin-left:5px;
-      color: #26a2ff;
-    
-      
-}
+
 </style>
