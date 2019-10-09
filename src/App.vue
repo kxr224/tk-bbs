@@ -1,29 +1,74 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+
+   
+     <mt-tabbar v-model="selected">
+  <mt-tab-item id="index">
+   
+   首页
+  </mt-tab-item>
+<div id="add">
+  +
+</div>
+  <mt-tab-item id="login">
+  
+   我的
+  </mt-tab-item>
+  
+</mt-tabbar>
     <router-view/>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import index from '@/views/index.vue'
+import mine from '@/views/mine.vue'
+export default {
+  data(){
+    return {
+      selected:"index"
     }
+  },
+   created() {
+      
+    if (this.$route.path == "/index") {
+      this.selected = "index";
+    } else if (this.$route.path == "/login") {
+      this.selected ="login";
+    }
+  },
+   watch: {
+    selected(newval) {
+       
+      if (newval == "index" && this.$route.path != "/index") {
+        this.$router.push({ path: "/index" });
+      } else if (newval == "login" && this.$route.path != "/mine") {
+        this.$router.push({ path: "/mine" });
+      }
+    },
+    
   }
+}
+</script>
+
+<style lang="less" scoped >
+::v-deep .mt-tabbar {
+  height:450px;
+}
+::v-deep .mint-tab-item-label {
+    color: inherit;
+    font-size: 15px;
+    line-height: 3;
+}
+#add{
+  
+      font-size: 40px;
+    background-color:wheat;
+    border-radius: 50%;
+  
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 46px;
 }
 </style>
