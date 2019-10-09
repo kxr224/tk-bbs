@@ -7,7 +7,7 @@
         <div class="but">
               <mt-button type="primary" size="normal">登陆</mt-button>
         </div>
-        <p>没有账号？去<a href="">注册</a></p>
+        <p>没有账号？去<router-link to="/registe">注册</router-link>></p>
        <a href="http://">忘记密码</a>
    
     </div>
