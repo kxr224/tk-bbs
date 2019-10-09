@@ -1,5 +1,6 @@
 <template>
 
+
   <div class="main" id="id">
     <h2>bbTalk</h2>
     <mt-field label="用户名" placeholder="请输入用户名" v-model="username" @blur.native.capture="checkName">
@@ -24,10 +25,15 @@
     </p>
     <a href="http://">忘记密码</a>
   </div>
+
+    
+   
+
 </template>
 
 <script>
 export default {
+
   data() {
     return {
       username: "",
@@ -51,25 +57,33 @@ export default {
       } 
     },
     log(){
-        
+    },
+
+    data() {
+        return {
+            username: "",
+            password: ""
+        };
+    },
+  
+
     }
-  }
 };
 </script>
 
 <style lang="less">
 .main {
-  text-align: center;
-  margin-top: 50px;
+    text-align: center;
+    margin-top: 50px;
 }
 
 .but {
-  margin-top: 30px;
-  margin-left: 5px;
+    margin-top: 30px;
+    margin-left: 5px;
 }
 
 .noNum {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 .tip{
         color:red;

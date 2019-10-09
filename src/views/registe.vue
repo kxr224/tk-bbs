@@ -40,6 +40,7 @@
     </div>
 </template>
 <script>
+import {getSendCodes} from '@/services/mine.js'
 export default {
     data() {
         return {
@@ -108,12 +109,13 @@ export default {
                 //如果成功了进行路由的跳转，跳到登陆界面
             } else {
                 // 如果姓名或者验证不通过，执行这里
-                console.log(1);
+            
                 event.preventDefault();
             }
         },
         sendCode() {
             if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.phone)) {
+             getSendCodes(this.phone)
                 var time = 60
                 const timer = setInterval(() => {
                     time--
@@ -130,7 +132,8 @@ export default {
 
             }
 
-        }
+        },
+
 
 
     },
