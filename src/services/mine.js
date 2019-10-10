@@ -25,7 +25,17 @@ function registe(loginName,password,userName,phonenumber,code){
     formdata.append("rememberMe",true)
     http.post('/api/registry',formdata)
 }
+function findPassword(loginName,password,phonenumber,code){
+    let formdata = new FormData()
+    formdata.append('loginName',loginName)
+    formdata.append('password',password)
+    formdata.append('phonenumber',phonenumber)
+    formdata.append('code',code)
+    formdata.append("rememberMe",true)
+   return http.post('/api/password/forget',formdata)
+}
 export {
     getSendCodes,
-    registe
+    registe,
+    findPassword
 }

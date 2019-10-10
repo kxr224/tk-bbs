@@ -23,7 +23,7 @@
       没有账号？去
       <router-link to="/registe">注册</router-link>
     </p>
-    <a href="http://">忘记密码</a>
+  <router-link to="/forgetPassword">忘记密码</router-link>
   </div>
 
     
@@ -59,12 +59,7 @@ export default {
     log(){
     },
 
-    data() {
-        return {
-            username: "",
-            password: ""
-        };
-    },
+   
   
 
     }
