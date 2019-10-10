@@ -23,7 +23,7 @@
       没有账号？去
       <router-link to="/registe">注册</router-link>
     </p>
-  <router-link to="/forgetPassword">忘记密码</router-link>
+    <router-link to="/forgetPassword">忘记密码</router-link>
   </div>
 </template>
 
@@ -38,6 +38,9 @@ export default {
       msgpassword: "",
       see: false
     };
+  },
+  computed: {
+    
   },
   methods: {
     checkName() {
@@ -60,13 +63,14 @@ export default {
     //     password: ""
     //   };
     // },
+    //登陆成功跳转到我的页面
     log() {
-      login(this.username,this.password).then(res => {
-
-
-
+      login(this.username, this.password).then(res => {
         if (res.code == 0) {
-          this.$store.state.islogin=true
+          this.$store.commit({
+            type: "loginsucess",
+            user: res.data
+          });
           this.$router.push({ path: "/mine" });
         } else {
           this.see = true;

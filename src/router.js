@@ -67,7 +67,11 @@ export default new Router({
         },{
           path:'/forgetPassword',
           component:forgetPassword
-        }
+        },
+        // {
+        //   path:'/changePersonal',
+        //   component:changePersonal
+        // }
 
   ]
 })
