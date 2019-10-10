@@ -1,18 +1,35 @@
 <template>
     <div id="box">
     
+    
+    
         <mt-header title="注册账号">
-      <router-link to="/login" slot="left">
-        <mt-button icon="back">返回</mt-button>
-      </router-link>
-      <mt-button icon="more" slot="right"></mt-button>
-    </mt-header>
+    
+            <router-link to="/login" slot="left">
+    
+                <mt-button icon="back">返回</mt-button>
+    
+            </router-link>
+    
+            <mt-button icon="more" slot="right"></mt-button>
+    
+        </mt-header>
+    
+    
     
         <!-- field的坑，事件的触发需要加上nativ.capture -->
     
+    
+    
         <mt-field label="用户名：" v-model="username" @blur.native.capture="checkName()"><span class="tips">{{msgName}}</span></mt-field>
+    
         <mt-field label="昵称：" v-model="name"></mt-field>
+    
         <mt-field label="密码：" type="password" v-model="password" @blur.native.capture='checkPassword()'>
+    
+    
+    
+    
     
     
     
@@ -20,11 +37,23 @@
     
     
     
+    
+    
+    
+    
         </mt-field>
+    
+    
     
         <mt-field label="手机号：" type="tel" v-model="phone" @blur.native.capture='checkPhone()'>
     
+    
+    
             <el-button id="sendCode" plain @click="sendCode()">{{idCode}}</el-button>
+    
+    
+    
+    
     
     
     
@@ -32,24 +61,38 @@
     
     
     
+    
+    
+    
+    
         </mt-field>
+    
+    
     
         <mt-field label="验证码：" type="text" v-model="codes"></mt-field>
     
+    
+    
         <mt-field label="自我介绍:" type="textarea" rows="4" v-model="introduction"></mt-field>
+    
+    
     
         <!-- <input type="submit" value="注册" @click="register($event)"> -->
     
+    
+    
         <el-button type="info" round @click="register($event)">注册</el-button>
+    
+    
     
     </div>
 </template>
 <script>
-import {getSendCodes,registe} from '@/services/mine.js'
+import { getSendCodes, registe } from '@/services/mine.js'
 export default {
     data() {
         return {
-            name:'',
+            name: '',
             username: '',
             msgName: '',
             password: '',
@@ -110,20 +153,18 @@ export default {
                 this.idCode = ''
             }
         },
-        register(event) {
-            // if (this.checkName() & this.checkPassword()) {
-                //如果成功了进行路由的跳转，跳到登陆界面
-                console.log('chenggong ')
-                registe(this.username,this.password,this.name,this.phone,this.codes)
-            // } else {
-                // 如果姓名或者验证不通过，执行这里
+        register() {
+            registe(this.username, this.password, this.name, this.phone, this.codes).then(res=>{
+                if (res.code == 0) {
+                this.$router.push({ path: '/login' })
+            }
+            })
             
-                // event.preventDefault();
-            // }
+
         },
         sendCode() {
             if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.phone)) {
-             getSendCodes(this.phone)
+                getSendCodes(this.phone)
                 var time = 60
                 const timer = setInterval(() => {
                     time--
