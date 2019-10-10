@@ -1,12 +1,17 @@
 <template>
     <div id="box">
     
-        <h2>注册账号</h2>
+        <mt-header title="注册账号">
+      <router-link to="/login" slot="left">
+        <mt-button icon="back">返回</mt-button>
+      </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
     
         <!-- field的坑，事件的触发需要加上nativ.capture -->
     
         <mt-field label="用户名：" v-model="username" @blur.native.capture="checkName()"><span class="tips">{{msgName}}</span></mt-field>
-    
+        <mt-field label="昵称：" v-model="name"></mt-field>
         <mt-field label="密码：" type="password" v-model="password" @blur.native.capture='checkPassword()'>
     
     
@@ -40,10 +45,11 @@
     </div>
 </template>
 <script>
-import {getSendCodes} from '@/services/mine.js'
+import {getSendCodes,registe} from '@/services/mine.js'
 export default {
     data() {
         return {
+            name:'',
             username: '',
             msgName: '',
             password: '',
@@ -104,14 +110,16 @@ export default {
                 this.idCode = ''
             }
         },
-        register: function(event) {
-            if (this.checkName() & this.checkPassword()) {
+        register(event) {
+            // if (this.checkName() & this.checkPassword()) {
                 //如果成功了进行路由的跳转，跳到登陆界面
-            } else {
+                console.log('chenggong ')
+                registe(this.username,this.password,this.name,this.phone,this.codes)
+            // } else {
                 // 如果姓名或者验证不通过，执行这里
             
-                event.preventDefault();
-            }
+                // event.preventDefault();
+            // }
         },
         sendCode() {
             if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.phone)) {
@@ -144,6 +152,7 @@ export default {
 <style lang="less">
 #box {
     height: 100%;
+    text-align: center;
     .tips {
         color: tomato;
         font-size: 12px;
