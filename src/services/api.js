@@ -21,7 +21,7 @@ instance.interceptors.response.use(function (response) {
     // 对响应数据做点什
     // 错误处理
     const data = response.data;
-    if (data.status !== 0) {
+    if (data.code !== 0) {
         alert(data.msg);
     }
     // 精简了返回内容
