@@ -5,6 +5,7 @@ import theme from './components/theme.vue'
 import recomend from './components/recomend.vue'
 import login from './views/login.vue'
 import registe from './views/registe.vue'
+import forgetPassword from './views/Forget-password.vue'
 import mine from './views/mine.vue'
 
 import search from './views/search.vue'
@@ -63,6 +64,9 @@ export default new Router({
           path:'/msgDetail',
           component:msgDetail
 
+        },{
+          path:'/forgetPassword',
+          component:forgetPassword
         }
 
   ]
