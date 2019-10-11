@@ -1,7 +1,7 @@
 <template>
     <div>
      
- <router-link to="/search"><input type="text" class="search"></router-link>
+ <router-link to="/search"><input type="text" class="searchInput"></router-link>
  <el-button id="el-button" icon="el-icon-search" circle></el-button>
 <tablist></tablist>
  <transition name="movie-tran" mode="out-in"><router-view></router-view></transition>
@@ -24,11 +24,11 @@ export default {
      font-size: 20px;
      margin-left:10px;
  }
-.search{
+.searchInput{
     width:250px;
     height:25px;
     margin-top:5px;
-    margin-left:28px;
+    margin-left:56px;
      border: 1px solid
 
 }

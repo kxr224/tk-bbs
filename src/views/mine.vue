@@ -8,35 +8,40 @@
     <div class="personCard">
       <div class="head">
         <div class="sculpture">
-            <el-upload
-          class="avatar-uploader"
-          action="/api/system/user/profile/update/avatar/nos"
-          :show-file-list="false"
-          name="avatarfile"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
-        >
-          <img v-if="user.avatar" :src="user.avatar" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+          <el-upload
+            class="avatar-uploader"
+            action="/api/system/user/profile/update/avatar/nos"
+            :show-file-list="false"
+            name="avatarfile"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="user.avatar" :src="user.avatar" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </div>
-        
+
         <p id="name">{{msg.loginName}}</p>
       </div>
     </div>
 
     <div class="permsg">
       <p>账号: {{msg.loginName}}</p>
-    <p class="el-icon-mobile-phone">: {{msg.phonenumber}}</p>
-    <br />
-    <p class="el-icon-message">: {{msg.email}}</p>
+      <p class="el-icon-mobile-phone">: {{msg.phonenumber}}</p>
+      <br />
+      <p class="el-icon-message">: {{msg.email}}</p>
     </div>
-    <router-link to>
-      <p>我参与的 ></p>
-    </router-link>
-    <router-link to="/changePersonal">
-      <p>修改资料</p>
-    </router-link>
+    <div class="function">
+      <router-link to>
+        <p>我参与的 ></p>
+      </router-link>
+      <router-link to="/changePersonal">
+        <p>修改资料</p>
+      </router-link>
+      <router-link to="/login">
+        <p>退出登陆</p>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -50,7 +55,7 @@ export default {
       }
     },
     goLast() {
-      this.$router.go(-1);
+      this.$router.push({path:'/index'});
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -93,14 +98,18 @@ export default {
   width: 100px;
   height: 100px;
   margin: 30px 10px;
-  background: violet;
+  // background: violet;
   border-radius: 50%;
+  
+}
+.sculpture{
+  margin-left:100px;
 }
 #name {
- position: absolute;
-    right: 128px;
-    top: 150px;
-    font-size: 43px;
+  position: absolute;
+        right: 187px;
+    top: 241px;
+    font-size: 26px;
 }
 .title > h1 {
   text-align: center;
@@ -131,30 +140,50 @@ export default {
   width: 100px;
   height: 100px;
   display: block;
+  margin:0 auto;
 }
 .personCard {
-  border: 2px solid #7bc1f6;
-  box-shadow: -6px -1px 8px #7bc1f6;
+  // border: 2px solid #7bc1f6;
+  // box-shadow: -6px -1px 8px #7bc1f6;
   border-radius: 10px;
-  margin-top:50px;
+  margin-top: 50px;
 }
 .el-icon-back:before {
   content: "\E6EA";
   font-size: 20px;
 }
-.permsg{
-  margin-top:10px;
- margin-bottom: 5px;
+.permsg {
+  margin-top: 65px;
+  margin-bottom: 5px;
 }
-.permsg{
-  p{
-    margin:5px;
+.permsg {
+  // border: 2px solid #7bc1f6;
+  box-shadow: -6px -1px 8px #7bc1f6;
+  border-radius: 10px;
+  p {
+    margin: 8px;
+     
   }
 }
 .avatar[data-v-4a6811ed] {
-    width: 100px;
-    height: 100px;
-    display: block;
-    border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: block;
+  border-radius: 50%;
+}
+a:-webkit-any-link {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+.function{
+  margin-top:15px;
+  margin-left:10px;
+  // border: 2px solid #7bc1f6;
+  // box-shadow: -6px -1px 8px #7bc1f6;
+  border-radius: 10px;
+  p{
+    margin-top:5px;
+  }
 }
 </style>
