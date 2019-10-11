@@ -20,7 +20,7 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </div>
-
+        
         <p id="name">{{msg.loginName}}</p>
       </div>
     </div>
@@ -32,7 +32,7 @@
       <p class="el-icon-message">: {{msg.email}}</p>
     </div>
     <div class="function">
-      <router-link to>
+      <router-link to="/iJoin">
         <p>我参与的 ></p>
       </router-link>
       <router-link to="/changePersonal">
@@ -98,9 +98,8 @@ export default {
   width: 100px;
   height: 100px;
   margin: 30px 10px;
-  // background: violet;
   border-radius: 50%;
-  
+
 }
 .sculpture{
   margin-left:100px;
@@ -143,10 +142,8 @@ export default {
   margin:0 auto;
 }
 .personCard {
-  // border: 2px solid #7bc1f6;
-  // box-shadow: -6px -1px 8px #7bc1f6;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top:50px;
 }
 .el-icon-back:before {
   content: "\E6EA";
@@ -162,7 +159,7 @@ export default {
   border-radius: 10px;
   p {
     margin: 8px;
-     
+
   }
 }
 .avatar[data-v-4a6811ed] {
@@ -170,6 +167,10 @@ export default {
   height: 100px;
   display: block;
   border-radius: 50%;
+}
+a{
+    text-decoration: none;
+    color: black;
 }
 a:-webkit-any-link {
   color: black;

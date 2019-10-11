@@ -10,12 +10,13 @@
       placeholder="请输入密码"
       type="password"
       v-model="password"
+      @keyup.native.capture.enter="log"
       @blur.native.capture="checkPassword"
     >
       <span class="tip">{{msgpassword}}</span>
     </mt-field>
     <div class="but">
-      <mt-button type="primary" size="large" @click="log">登陆</mt-button>
+      <mt-button type="primary" size="large" @click="log" >登陆</mt-button>
     </div>
     <p v-if="see">用户名或密码错误</p>
 

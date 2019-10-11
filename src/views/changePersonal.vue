@@ -13,6 +13,7 @@
     </mt-field>
     </div>
     <el-button plain @click="changePersonalMsg()">确认修改</el-button>
+    
     </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
             userName:'',
             email:'',
             phonenumber:'',
-            msgPhone:'',
+            msgPhone:'', 
         }
     },
     computed:{
@@ -35,7 +36,17 @@ export default {
     },
     methods: {
         changePersonalMsg(){
-        changePersonalMsg(this.userName,this.email,this.phonenumber)
+        changePersonalMsg(this.userName,this.email,this.phonenumber).then(res=>{
+          if(res.code==0){
+                    this.$notify({
+          title: '修改成功',
+        //   message: '这是一条成功的提示消息',
+          type: 'success',
+          position:'top-left'
+        });
+          }
+        })
+
         },
         checkPhone() {
             var word = this.phonenumber.trim();
@@ -44,12 +55,13 @@ export default {
             } else {
                 this.msgPhone = '请输入正确的手机号'
             }
-        }
+        },
+        
     },
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     *{
         margin:0;
         padding: 0;
@@ -57,7 +69,7 @@ export default {
     #box{
         text-align: center;
         #bodyBox{
-            margin-top: 30px;
+            margin-top: 50px;
             margin-bottom: 50px;
             border: 1px solid #ccc;
             border-top: 0;
