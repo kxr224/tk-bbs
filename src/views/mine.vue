@@ -16,10 +16,11 @@
         <img v-if="user.avatar" :src="user.avatar" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-      <p id="name">{{msg.loginName}}</p>
+      <p id="name">{{msg.userName}}</p>
     </div>
-    <p>账号：{{msg.phonenumber}}</p>
-
+    <p>账号：{{msg.loginName}}</p>
+    <p>手机号：{{msg.phonenumber}}</p>
+    <p>邮箱：{{msg.email}}</p>
     <router-link to=""><p>我参与的 ></p></router-link>
     <router-link to="/changePersonal"><p>修改资料</p></router-link>
   </div>
@@ -61,11 +62,12 @@ export default {
      }
   },
   beforeCreate() {
+  
+  },
+  created() {
     if (!this.$store.state.islogin) {
       this.$router.push({ path: "/login" });
     }
-  },
-  created() {
     getPerson().then(res => {
       this.msg = res;
     });
@@ -74,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .head {
   margin-top: 100px;
   width: 100px;

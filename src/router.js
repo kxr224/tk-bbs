@@ -6,6 +6,7 @@ import recomend from './components/recomend.vue'
 import login from './views/login.vue'
 import registe from './views/registe.vue'
 import forgetPassword from './views/Forget-password.vue'
+import changePersonal from './views/changePersonal.vue'
 import mine from './views/mine.vue'
 
 import search from './views/search.vue'
@@ -68,10 +69,10 @@ export default new Router({
           path:'/forgetPassword',
           component:forgetPassword
         },
-        // {
-        //   path:'/changePersonal',
-        //   component:changePersonal
-        // }
+        {
+          path:'/changePersonal',
+          component:changePersonal
+        }
 
   ]
 })

@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .main {
   text-align: center;
   margin-top: 50px;
