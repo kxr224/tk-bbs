@@ -18,9 +18,7 @@
             <router-link to="/publishMsg">
     
                 <div id="add">
-    
-                    +
-    
+                     +
                 </div>
     
             </router-link>
@@ -86,13 +84,15 @@ export default {
 }
 
 #add {
-    font-size: 40px;
-    background-color: wheat;
+    font-size: 43px;
+    background-color: #26A2FF;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     text-align: center;
     line-height: 46px;
+    color:white;
+    
 }
 .router-link-exact-active{
    text-decoration: none

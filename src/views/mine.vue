@@ -1,15 +1,17 @@
 <template>
   <div>
+    <div class="el-icon-back" @click="goLast"></div>
     <div class="title">
       <h2>bb Talk</h2>
       <h3>个人主页</h3>
     </div>
-    <div class="head">
+   <div class="personCard">
+      <div class="head">
       <el-upload
         class="avatar-uploader"
         action="/api/system/user/profile/update/avatar/nos"
         :show-file-list="false"
-        name='avatarfile'
+        name="avatarfile"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
       >
@@ -18,47 +20,52 @@
       </el-upload>
       <p id="name">{{msg.loginName}}</p>
     </div>
-    <p>账号：{{msg.phonenumber}}</p>
+   </div>
+    <div class="el-icon-phone">{{msg.phonenumber}}</div>
 
-    <router-link to=""><p>我参与的 ></p></router-link>
-    <router-link to="/changePersonal"><p>修改资料</p></router-link>
+    <router-link to>
+      <p>我参与的 ></p>
+    </router-link>
+    <router-link to="/changePersonal">
+      <p>修改资料</p>
+    </router-link>
   </div>
-
 </template>
 
 <script>
 import { getPerson } from "@/services/mine";
 export default {
-     methods: {
-      handleAvatarSuccess(res, file) {
-        if(res.code==0){
+  methods: {
+    handleAvatarSuccess(res, file) {
+      if (res.code == 0) {
         this.imageUrl = URL.createObjectURL(file.raw);
-        }
-      
-      
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
       }
     },
+    goLast() {
+      this.$router.go(-1);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    }
+  },
   data() {
     return {
       msg: {}
     };
   },
   computed: {
-     user(){
-         return this.$store.state.user
-     }
+    user() {
+      return this.$store.state.user;
+    }
   },
   beforeCreate() {
     if (!this.$store.state.islogin) {
@@ -69,8 +76,7 @@ export default {
     getPerson().then(res => {
       this.msg = res;
     });
-  },
- 
+  }
 };
 </script>
 
@@ -81,11 +87,13 @@ export default {
   height: 100px;
   margin: 30px 10px;
   background: violet;
+  border-radius: 50%;
 }
 #name {
   position: absolute;
-  right: 78px;
-  top: 145px;
+  right: 181px;
+  top: 114px;
+  font-size: 32px;
 }
 .title > h2 {
   text-align: center;
@@ -94,27 +102,37 @@ export default {
   margin-left: 10px;
 }
 
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-  }
-  .avatar {
-    width: 100px;
-    height: 100px;
-    display: block;
-  }
+.avatar-uploader .el-upload {
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+.personCard{
+  border:2px solid #7BC1F6;
+     box-shadow: -2px -2px 8px #7BC1F6;
+  border-radius: 10px;
+
+}
+.el-icon-back:before {
+    content: "\E6EA";
+    font-size:20px;
+}
 </style>

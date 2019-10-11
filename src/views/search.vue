@@ -7,7 +7,7 @@
   </mt-header>
 
       <input type="text" class="search">
-      <mt-button type="primary" size="small" >搜索</mt-button>
+      <el-button id="el-button" icon="el-icon-search" circle></el-button>
       <div class="history">
           <ul>
               <li>搜索历史</li>
