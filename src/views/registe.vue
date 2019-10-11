@@ -3,85 +3,71 @@
     
     
     
+    
+    
+    
+    
         <mt-header title="注册账号">
+    
+    
     
             <router-link to="/login" slot="left">
     
+    
+    
                 <mt-button icon="back">返回</mt-button>
+    
+    
     
             </router-link>
     
+    
+    
             <mt-button icon="more" slot="right"></mt-button>
+    
+    
     
         </mt-header>
     
     
     
-        <!-- field的坑，事件的触发需要加上nativ.capture -->
+        <div id="bodyBox">
+    
+            <!-- field的坑，事件的触发需要加上nativ.capture -->
+    
+            <mt-field label="用户名：" v-model="username" @blur.native.capture="checkName()"><span class="tips">{{msgName}}</span></mt-field>
     
     
     
-        <mt-field label="用户名：" v-model="username" @blur.native.capture="checkName()"><span class="tips">{{msgName}}</span></mt-field>
-    
-        <mt-field label="昵称：" v-model="name"></mt-field>
-    
-        <mt-field label="密码：" type="password" v-model="password" @blur.native.capture='checkPassword()'>
+            <mt-field label="昵称：" v-model="name"></mt-field>
     
     
     
+            <mt-field label="密码：" type="password" v-model="password" @blur.native.capture='checkPassword()'>
+    
+                <span class="tips">{{msgpassword}}</span>
+    
+            </mt-field>
+    
+            <mt-field label="手机号：" type="tel" v-model="phone" @blur.native.capture='checkPhone()'>
+    
+                <el-button id="sendCode" plain @click="sendCode()">{{idCode}}</el-button>
+    
+                <span class="tips">{{msgPhone}}</span>
+    
+            </mt-field>
+    
+            <mt-field label="验证码：" type="text" v-model="codes"></mt-field>
+            
     
     
     
-    
-            <span class="tips">{{msgpassword}}</span>
-    
-    
-    
-    
-    
-    
-    
-        </mt-field>
-    
-    
-    
-        <mt-field label="手机号：" type="tel" v-model="phone" @blur.native.capture='checkPhone()'>
-    
-    
-    
-            <el-button id="sendCode" plain @click="sendCode()">{{idCode}}</el-button>
-    
-    
-    
-    
-    
-    
-    
-            <span class="tips">{{msgPhone}}</span>
-    
-    
-    
-    
-    
-    
-    
-        </mt-field>
-    
-    
-    
-        <mt-field label="验证码：" type="text" v-model="codes"></mt-field>
-    
-    
-    
-        <mt-field label="自我介绍:" type="textarea" rows="4" v-model="introduction"></mt-field>
-    
-    
-    
-        <!-- <input type="submit" value="注册" @click="register($event)"> -->
-    
-    
-    
+        </div>
         <el-button type="info" round @click="register($event)">注册</el-button>
+    
+    
+    
+    
     
     
     
@@ -154,12 +140,12 @@ export default {
             }
         },
         register() {
-            registe(this.username, this.password, this.name, this.phone, this.codes).then(res=>{
+            registe(this.username, this.password, this.name, this.phone, this.codes).then(res => {
                 if (res.code == 0) {
-                this.$router.push({ path: '/login' })
-            }
+                    this.$router.push({ path: '/login' })
+                }
             })
-            
+
 
         },
         sendCode() {
@@ -194,12 +180,18 @@ export default {
 #box {
     height: 100%;
     text-align: center;
-    .tips {
-        color: tomato;
-        font-size: 12px;
-    }
-    #sendCode {
-        padding: 2px;
+    #bodyBox {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        border-top: 1px solid #ccc;
+      
+        .tips {
+            color: tomato;
+            font-size: 12px;
+        }
+        #sendCode {
+            padding: 2px;
+        }
     }
 }
 </style>

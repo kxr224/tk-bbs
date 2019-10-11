@@ -8,7 +8,7 @@ import registe from './views/registe.vue'
 import forgetPassword from './views/Forget-password.vue'
 import changePersonal from './views/changePersonal.vue'
 import mine from './views/mine.vue'
-
+import iJoin from './views/I-join'
 import search from './views/search.vue'
 
 import publishMsg from './views/publish-msg.vue'
@@ -72,6 +72,10 @@ export default new Router({
         {
           path:'/changePersonal',
           component:changePersonal
+        },
+        {
+          path:'/iJoin',
+          component:iJoin
         }
 
   ]

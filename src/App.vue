@@ -42,8 +42,8 @@
     </div>
 </template>
 <script>
-import index from '@/views/index.vue'
-import mine from '@/views/mine.vue'
+// import index from '@/views/index.vue'
+// import mine from '@/views/mine.vue'
 export default {
     data() {
         return {
@@ -60,7 +60,6 @@ export default {
     },
     watch: {
         selected(newval) {
-
             if (newval == "index" && this.$route.path != "/index") {
                 this.$router.push({ path: "/index" });
             } else if (newval == "login" && this.$route.path != "/mine") {

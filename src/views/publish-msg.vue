@@ -6,16 +6,20 @@
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
-    <div id="selectTopic">
-      <span v-for="(item,index) in list" :key="index">{{item}}</span>
+<div id="innerBox">
+      <div id="selectTopic">
+      <span class="topic" :style="{'color':item.categoryId==categoryId?'red':'green'}" v-for="(item,index) in list" :key="index" @click="selectTopic(item.categoryId)">{{item.name}}</span>
     </div>
     <h4>请输入发布的内容:</h4>
     <div id="msg">
-      <textarea id="textarea" cols="50" rows="8"></textarea>
+      <input id="msgTitle" placeholder=" 文章标题 :" v-model="title" type="text">
+     
+      <textarea placeholder=" 文章内容 : " id="textarea" cols="50" rows="8" v-model="intro"></textarea>
       <el-upload
         class="avatar-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        name="avatarfile"
+        action="/api/nos/upload/image"
+        name="file"
+        :data="{fileUseForEnum:'BBS'}"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
@@ -26,33 +30,30 @@
       <span>添加图片</span>
     </div>
     <div id="submit">
-        <el-button type="success" icon="el-icon-check" round>发布</el-button>
+        <el-button type="success" icon="el-icon-check" round @click="publish()">发布</el-button>
         </div>
+</div>
   </div>
 </template>
 <script>
+import {getTopics,publish} from '@/services/index.js'
 export default {
   data() {
     return {
       list: [
-        "科学",
-        "人文",
-        "历史",
-        "感情",
-        "体育",
-        "天文",
-        "社会",
-        "汽车",
-        "游戏",
-        "颜值",
-        "舞蹈"
+        
       ],
-      imageUrl: ""
+      imageUrl: "",
+      categoryId:'',
+      title:'',
+      intro:'',
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+    handleAvatarSuccess(res) {
+      // this.imageUrl = URL.createObjectURL(file.raw);
+      this.imageUrl=res.url
+     
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -65,7 +66,30 @@ export default {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
+    },
+    selectTopic(categoryId){
+        this.categoryId = categoryId
+       
+    },
+    publish(){
+      publish(this.categoryId,this.title,this.intro,this.imageUrl).then(res=>{
+       if(res.code==0){
+                      this.$notify({
+          title: '帖子发布成功',
+        //   message: '这是一条成功的提示消息',
+          type: 'success',
+          position:'top-left'
+        });
+        // this.$router.push({path:'/'})
+       }
+      })
     }
+  },
+  created(){
+   
+  getTopics().then(res=>{
+   this.list = res.rows
+  })
   }
 };
 </script>
@@ -74,7 +98,10 @@ export default {
   margin: 0;
   padding: 0;
 }
-
+#innerBox{
+  overflow:scroll;
+  height: calc(100vh - 100px)
+}
 #selectTopic {
   padding: 5px;
   display: flex;
@@ -93,6 +120,13 @@ h4 {
 #msg {
     text-align: center;
   border: 1px solid #ccc;
+  #msgTitle{
+    padding: 2px;
+   border: 0;
+   outline: none;
+   border-bottom: 1px dashed #ccc;
+   margin-bottom: 10px;
+  }
 }
 #submit{
     padding: 5px;
@@ -102,7 +136,7 @@ h4 {
 #textarea {
   outline: none;
   resize: none;
-  border: none;
+  border: 1px solid #ccc;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
@@ -126,5 +160,8 @@ h4 {
   width: 178px;
   height: 178px;
   display: block;
+}
+.avatar-uploader-icon[data-v-02473fce]{
+  background-color: #eee;
 }
 </style>

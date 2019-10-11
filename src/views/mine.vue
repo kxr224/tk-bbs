@@ -31,11 +31,11 @@
     <br />
     <p class="el-icon-message">: {{msg.email}}</p>
     </div>
-    <router-link to>
-      <p>我参与的 ></p>
+    <router-link to="/iJoin">
+      <p> 我参与的 ></p>
     </router-link>
     <router-link to="/changePersonal">
-      <p>修改资料</p>
+      <p> 修改资料 ></p>
     </router-link>
   </div>
 </template>
@@ -156,5 +156,9 @@ export default {
     height: 100px;
     display: block;
     border-radius: 50%;
+}
+a{
+  text-decoration: none;
+  color: black;
 }
 </style>
