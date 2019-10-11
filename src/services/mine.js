@@ -57,6 +57,15 @@ function findPassword(loginName,password,phonenumber,code){
     formdata.append("rememberMe",true)
    return http.post('/api/password/forget',formdata)
 }
+function changePersonalMsg(userName,email,phonenumber){
+    let formdata = new FormData()
+    formdata.append('userName',userName)
+    formdata.append('email',email)
+    formdata.append('phonenumber',phonenumber)
+   
+    formdata.append("rememberMe",true)
+   return http.post('/api/system/user/profile/update',formdata)
+}
 export{
     getSendCodes,
     login,
@@ -64,4 +73,5 @@ export{
     getPerson,
     registe,
     findPassword,
+    changePersonalMsg
 }

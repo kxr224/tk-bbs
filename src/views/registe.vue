@@ -149,7 +149,7 @@ export default {
                 this.msgPhone = ''
                 this.idCode = '发送验证码'
             } else {
-                this.msgPhone = '请输入正的手机号'
+                this.msgPhone = '请输入正确的手机号'
                 this.idCode = ''
             }
         },

@@ -2,27 +2,35 @@
   <div>
     <div class="el-icon-back" @click="goLast"></div>
     <div class="title">
-      <h2>bb Talk</h2>
+      <h1>bb Talk</h1>
       <h3>个人主页</h3>
     </div>
-   <div class="personCard">
+    <div class="personCard">
       <div class="head">
-      <el-upload
-        class="avatar-uploader"
-        action="/api/system/user/profile/update/avatar/nos"
-        :show-file-list="false"
-        name="avatarfile"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload"
-      >
-        <img v-if="user.avatar" :src="user.avatar" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-      <p id="name">{{msg.loginName}}</p>
+        <div class="sculpture">
+            <el-upload
+          class="avatar-uploader"
+          action="/api/system/user/profile/update/avatar/nos"
+          :show-file-list="false"
+          name="avatarfile"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+        >
+          <img v-if="user.avatar" :src="user.avatar" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        </div>
+        
+        <p id="name">{{msg.loginName}}</p>
+      </div>
     </div>
-   </div>
-    <div class="el-icon-phone">{{msg.phonenumber}}</div>
 
+    <div class="permsg">
+      <p>账号: {{msg.loginName}}</p>
+    <p class="el-icon-mobile-phone">: {{msg.phonenumber}}</p>
+    <br />
+    <p class="el-icon-message">: {{msg.email}}</p>
+    </div>
     <router-link to>
       <p>我参与的 ></p>
     </router-link>
@@ -67,12 +75,11 @@ export default {
       return this.$store.state.user;
     }
   },
-  beforeCreate() {
+  beforeCreate() {},
+  created() {
     if (!this.$store.state.islogin) {
       this.$router.push({ path: "/login" });
     }
-  },
-  created() {
     getPerson().then(res => {
       this.msg = res;
     });
@@ -80,7 +87,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .head {
   margin-top: 100px;
   width: 100px;
@@ -90,12 +97,12 @@ export default {
   border-radius: 50%;
 }
 #name {
-  position: absolute;
-  right: 181px;
-  top: 114px;
-  font-size: 32px;
+ position: absolute;
+    right: 128px;
+    top: 150px;
+    font-size: 43px;
 }
-.title > h2 {
+.title > h1 {
   text-align: center;
 }
 .title h3 {
@@ -125,14 +132,29 @@ export default {
   height: 100px;
   display: block;
 }
-.personCard{
-  border:2px solid #7BC1F6;
-     box-shadow: -2px -2px 8px #7BC1F6;
+.personCard {
+  border: 2px solid #7bc1f6;
+  box-shadow: -6px -1px 8px #7bc1f6;
   border-radius: 10px;
-
+  margin-top:50px;
 }
 .el-icon-back:before {
-    content: "\E6EA";
-    font-size:20px;
+  content: "\E6EA";
+  font-size: 20px;
+}
+.permsg{
+  margin-top:10px;
+ margin-bottom: 5px;
+}
+.permsg{
+  p{
+    margin:5px;
+  }
+}
+.avatar[data-v-4a6811ed] {
+    width: 100px;
+    height: 100px;
+    display: block;
+    border-radius: 50%;
 }
 </style>
