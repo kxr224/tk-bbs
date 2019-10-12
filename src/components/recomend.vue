@@ -1,6 +1,6 @@
 <template>
   <div class="mainList">
-    <ul class="showList" v-for="item in rows" :key="item.id">
+    <ul class="showList" v-for="item in rows" :key="item.id" @click="getInvitation(item)">
       <li>{{item.title}}</li>
      
           <img :src="item.coverImgUrl" alt="" class="picture">
@@ -24,9 +24,25 @@ export default {
   },
   created() {
     getRecomList().then(res => {
+      console.log(res)
       this.rows = res.rows;
     });
-  }
+  },
+  methods: {
+    getInvitation(item){
+   console.log(item)
+    //  this.$store.commit({
+    //         type: "changeInvitation",
+    //         invitation: item
+    //       });
+          this.$router.push({
+            path:'/msgDetail',
+            query:{
+                 invitationDetail:item
+            }
+            })
+    }
+  },
 };
 </script>
 

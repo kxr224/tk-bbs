@@ -1,95 +1,338 @@
 <template>
-    <div id="box">
-    
-    
-    
-        <mt-header title="帖子详情">
-    
-    
-    
-            <router-link to="/" slot="left">
-    
-    
-    
-                <mt-button icon="back">返回</mt-button>
-    
-    
-    
-            </router-link>
-    
-    
-    
-            <mt-button icon="more" slot="right"></mt-button>
-    
-    
-    
-        </mt-header>
-    
-        <div id="innerBox">
-    
-            <div id="picture">头像</div>
-    
-            <div id="hoster">楼主：陈俊宇</div>
-    
-          
-    
+  <div id="box">
+    <mt-header title="帖子详情">
+      <router-link to="/" slot="left">
+        <mt-button icon="back">返回</mt-button>
+      </router-link>
+
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
+
+    <div id="bodyBox">
+      <div id="innerBox">
+        <div id="picture">
+          <img :src="invitationDetails.avatar" alt />
         </div>
-          <div id="msgArea">帖子展示区域</div>
-          <div id="contentArea">评论区域</div>
-    
-        <el-input id="context" placeholder="发表评论 :"></el-input>
-    
-        <el-button id="contextSubmit" type="success" icon="el-icon-check"></el-button>
-    
-    
-    
-    
-    
+
+        <div id="hoster">
+          楼主：
+          <span>{{invitationDetails.userName}}</span>
+        </div>
+      </div>
+
+      <div id="msgArea">
+        <div class="imgBox" ref="imgBox">
+          <img class="invitationimg" :src="invitationDetails.coverImgUrl" alt />
+        </div>
+
+        <h4>{{invitationDetails.title}}</h4>
+
+        <p class="text">{{invitationDetails.intro}}</p>
+
+        <div class="msgAreaBot">
+          <i class="el-icon-delete" @click="deleteMsg(invitationDetails)"></i>
+          <i class="el-icon-chat-round" @click="goComment()">评论</i>
+        </div>
+      </div>
+
+      <div id="contentArea">
+        <h5>全部评论</h5>
+
+        <!-- <li v-for="(item,index) in comtentMsgList" :key="index">{{item.commentContent}}</li> -->
+
+        <div class="contentBox" v-for="(item,index) in comtentMsgList" :key="index">
+          <img :src="item.avatar" alt />
+          <span>{{item.userName}}</span>
+
+          <p>{{item.commentContent}}</p>
+
+          <div class="rbCommentCard" v-for="(item2,index2) in item.rbCommentList" :key="index2">
+            <!-- /////////////////////////////////////////////////////// -->
+
+            <img :src="item2.avatar" alt />
+            <span>{{item2.userName}}</span>
+
+            <p>{{item2.commentContent}}</p>
+          </div>
+
+          <div class="commentIcon">
+            <i class="el-icon-delete" @click="deleteComment(item.commentId)"></i>
+            <i @click="rbComment(item.commentId,item)" class="el-icon-chat-round">回复</i>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <el-input ref="commentInput" id="context" v-model="input" placeholder="发表评论 :"></el-input>
+
+    <el-button v-show="isShow" class="contextSubmit" icon="el-icon-check" @click="sendAComent()">评论</el-button>
+
+    <el-button
+      v-show="!isShow"
+      class="contextSubmit"
+      icon="el-icon-check"
+      @click="sendARbComent()"
+    >回复</el-button>
+  </div>
 </template>
 <script>
+import {
+  getCommentContent,
+  sendComment,
+  sendRbComment,
+  getRbCommentList,
+  deleteComment
+} from "@/services/index.js";
 export default {
+  // ref只能在页面加载之后才能用
+  //    mounted(){
+  //         //  this.$refs.imgBox.style.color='red'
+  //          this.$refs.imgBox.style.backgroundImage =`url(${this.invitationDetail.coverImgUrl})`
+  //     // },
+  data() {
+    return {
+      comtentMsgList: [],
+      // rbCommentList: [],
+      input: "",
+      isShow: true,
+      commentId: "",
+      invitationDetails: ""
+    };
+  },
+  methods: {
+    goComment() {
+      this.$refs.commentInput.focus();
+      this.isShow = true;
+    },
+    sendAComent() {
+      this.$forceUpdate();
+      //调用发送评论的函数
+      sendComment(this.$route.query.invitationDetail.postsId, this.input).then(
+        res => {
+          //发送评论后刷新评论列表
+          getCommentContent(this.$route.query.invitationDetail.postsId).then(
+            res => {
+              this.comtentMsgList = res.rows;
+            }
+          );
+        }
+      );
+      //刷新请求帖子详情的页面
+      getCommentContent(this.$route.query.invitationDetail.postsId).then(
+        res => {
+          this.$forceUpdate();
+          this.comtentMsgList = res.rows;
+        }
+      );
+      this.input = "";
+    },
+    rbComment(commentId, item) {
+      this.$refs.commentInput.focus();
+      this.isShow = false;
+      this.commentId = commentId;
+      //再次点击清除这个列表，达到再次点击关闭回复这个小页面
+      if (item.rbCommentList) {
+        this.$forceUpdate();
+        item.rbCommentList = "";
+      } else {
+        //调用回复列表的接口
+        getRbCommentList(commentId).then(res => {
+          this.$forceUpdate();
+          if (res.code == 0) {
+            item.rbCommentList = res.rows;
 
-}
+            // this.comtentMsgList = {...this.comtentMsgList}
+          }
+        });
+      }
+    },
+    sendARbComent() {
+      //调用回复接口
+      sendRbComment(
+        this.$route.query.invitationDetail.postsId,
+        this.commentId,
+        this.input
+      ).then(res => {
+        if (res.code == 0) {
+          alert("回复成功");
+          this.input = "";
+        }
+      });
+    },
+    //删除评论
+    deleteComment(commentId) {
+      this.$forceUpdate();
+      deleteComment(commentId).then(res => {
+        //删除成功后刷新评论列表
+        getCommentContent(this.$route.query.invitationDetail.postsId).then(
+          res => {
+            this.comtentMsgList = res.rows;
+          }
+        );
+      });
+    },
+    //删除帖子
+    deleteMsg(invitationDetails) {
+      console.log(invitationDetails);
+    }
+  },
+  created() {
+    this.invitationDetails = this.$route.query.invitationDetail;
+    console.log(this.$route.query.invitationDetail);
+    getCommentContent(this.$route.query.invitationDetail.postsId).then(res => {
+      this.comtentMsgList = res.rows;
+    });
+  }
+};
 </script>
-<style lang="less">
+<style lang="less" scpoed>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #box {
-    height: calc(100vh - 58.8px);
+  height: calc(100vh - 58.8px);
+  #bodyBox {
+    margin-top: 0;
+    height: calc(100vh - 140px);
+    overflow: scroll;
+  }
 }
 
 #context {
-    width: 80%;
-    position: fixed;
-    left: 10px;
-    bottom: 58.8px;
+  width: 75%;
+  position: fixed;
+  left: 0;
+  bottom: 58.8px;
 }
 
-#contextSubmit {
-    position: fixed;
-    right: 10px;
-    bottom: 58.8px;
+#context:focus {
+  color: #fff;
+  background-color: #888888;
+}
+
+.contextSubmit {
+  position: fixed;
+  right: 1px;
+  bottom: 58.8px;
 }
 
 #innerBox {
-    overflow: hidden;
-    #picture {
-        float: left;
-        height: 100px;
-        background-color: red;
+  overflow: hidden;
+  background-color: #eee;
+  background-position: center;
+  background-size: 100%;
+  #picture {
+    margin-left: 30px;
+    border-radius: 50%;
+    float: left;
+    height: 50px;
+    img {
+      border-radius: 50%;
+      width: 50px;
     }
-    #hoster {
-        float: left;
-        height: 100px;
-        background-color: blue;
+  }
+  #hoster {
+    padding: 0 10px;
+    line-height: 50px;
+    float: left;
+    height: 50px;
+    span {
+      font-size: 12px;
     }
-    
-    }
-    #msgArea {
-        height: 200px;
-        background-color: #ccc;
+  }
 }
-#contentArea{
-    height: 100px;
-    background-color: yellow;
+
+#msgArea {
+  padding: 0 30px;
+  text-align: left;
+  background-color: #eee;
+  .imgBox {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .text {
+    padding: 5px 0;
+    font-size: 13px;
+    color: #888888;
+  }
+  .msgAreaBot {
+    text-align: right;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed black;
+    i {
+      margin-left: 10px;
+      border-radius: 20px 20px 20px 20px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+  }
+}
+
+#contentArea {
+  overflow: scroll;
+  padding: 0 30px;
+  text-align: left;
+  height: calc(100% - 100px);
+  background-color: #eee;
+  h5 {
+    padding: 10px 0;
+  }
+  .contentBox {
+    padding: 10px 0 0 10px;
+    text-align: left;
+    margin: 10px 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px #ccc;
+    border-radius: 20px;
+    img {
+      width: 25px;
+      border-radius: 50%;
+    }
+    span {
+      font-size: 14px;
+      font-weight: bolder;
+    }
+    p {
+      font-size: 13px;
+    }
+    .rbCommentCard {
+      text-align: left;
+      margin: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 5px;
+      img {
+        width: 20px;
+        border-radius: 50%;
+      }
+      span {
+        font-size: 12px;
+        font-weight: bolder;
+      }
+      p {
+        font-size: 10px;
+        color: #888888;
+      }
+    }
+    .commentIcon {
+      text-align: right;
+      i {
+        margin: 0 10px 10px 0;
+        border-radius: 20px 20px 20px 20px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        font-size: 12px;
+      }
+      i:hover {
+        color: red;
+        font-size: 13px;
+      }
+    }
+  }
 }
 </style>

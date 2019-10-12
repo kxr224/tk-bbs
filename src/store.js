@@ -6,15 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
   islogin:false,
-  user:{
-      
-  }
+  user:{},
+  // invitation:{}
   },
   mutations: {
      loginsucess(state,payload){
          state.user=payload.user
           state.islogin=true
      }
+     ,
+    //  changeInvitation(state,payload){
+    //    state.invitation=payload.invitation
+    //  }
+
   },
   actions: {
 
