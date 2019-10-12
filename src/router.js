@@ -13,6 +13,7 @@ import search from './views/search.vue'
 
 import publishMsg from './views/publish-msg.vue'
 import msgDetail from './views/Msg-detail.vue'
+import themeArtList from "./views/themeArtList.vue"
 
 Vue.use(Router)
 
@@ -76,6 +77,10 @@ export default new Router({
         {
           path:'/iJoin',
           component:iJoin
+        },
+        {
+          path:"/themeArtList",
+          component:themeArtList
         }
 
   ]

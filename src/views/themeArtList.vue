@@ -1,6 +1,8 @@
 <template>
-  <div class="mainList">
-    <ul class="showList" v-for="item in rows" :key="item.id">
+    <div class="main">
+       <h2>{{name}}</h2>
+       <ul class="showList" v-for="item in rows" :key="item.id">
+        
       <li>{{item.title}}</li>
      
           <img :src="item.coverImgUrl" alt="" class="picture">
@@ -10,28 +12,32 @@
       </div>
       <img :src="item.avatar" class="pictureTitle" />
       <span class="writer">{{item.userName}}</span>
-    </ul>
-  </div>
+    </ul> 
+    </div>
 </template>
 
 <script>
-import { getRecomList } from "@/services/index";
+import {getThemeArtList} from "@/services/index"
+import {getTheme} from "@/services/index"
 export default {
-  data() {
-    return {
-      rows: []
-    };
-  },
-  created() {
-    getRecomList().then(res => {
-      this.rows = res.rows;
-    });
-  }
-};
+    data() {
+        return {
+            rows:[],
+            name:this.$route.query.name
+        }
+    },
+    created() {
+        getThemeArtList(this.$route.query.categoryId).then(res=>{
+            return this.rows=res.rows
+            
+        })
+    },
+    
+}
 </script>
 
-<style lang="less" scoped>
-.pictureTitle {
+<style lang="less">
+   .pictureTitle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -83,4 +89,5 @@ export default {
   -webkit-box-orient: vertical;
     
 }
+
 </style>

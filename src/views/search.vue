@@ -10,32 +10,52 @@
     <el-button id="el-button" icon="el-icon-search" circle @click="handleSearch"></el-button>
     <div class="history">
       <ul v-show="showHisory" class="historyList">
-          <li>搜索历史</li>
-        <li v-for="item in historySearch" :key="item.keyWord"  @click="apperHis"><span class="el-icon-time"></span>{{item.keyWord}}</li>
+        <li>搜索历史</li>
+        <li v-for="item in historySearch" :key="item.keyWord" @click="apperHis">
+          <span class="el-icon-time"></span>
+          {{item.keyWord}}
+        </li>
       </ul>
     </div>
     <div class="list">
-      <ul>
-        <li></li>
-      </ul>
+     <ul class="showList" v-for="item in rows" :key="item.id">
+      <li>{{item.title}}</li>
+     
+          <img :src="item.coverImgUrl" alt="" class="picture">
+      
+      <div class="contain">
+          {{item.intro}}
+      </div>
+      <img :src="item.avatar" class="pictureTitle" />
+      <span class="writer">{{item.userName}}</span>
+    </ul>
     </div>
   </div>
 </template>
 
 <script>
+import {getSearchRes} from "@/services/index"
 export default {
   data() {
     return {
       inputMsg: "",
       historySearch: [],
-      showHisory:false
+      showHisory: false,
+      
+      rows:[]
     };
   },
   methods: {
-      apperHis(){
-          console.log(1)
-         this.showHisory=true
-      },
+    apperHis() {
+      console.log(1);
+      this.showHisory = true;
+    },
+    //  showResult(){
+    //     getSearchRes(inputMsg).then(res=>{
+    //         return rows=res.rows
+    //   })
+  
+    //  },
     handleSearch() {
       if (this.inputMsg !== "") {
         let storage = window.localStorage;
@@ -56,15 +76,18 @@ export default {
           }
         }
       }
-    }
+
+    },
+  
+    
   },
   created() {
-      let storage=window.localStorage
-        if(storage.getItem('searchWord')!==null){
-            this.historySearch=JSON.parse(storage.getItem('searchWord'))
+    let storage = window.localStorage;
+    if (storage.getItem("searchWord") !== null) {
+      this.historySearch = JSON.parse(storage.getItem("searchWord"));
+    }
   }
-  }
-}
+};
 </script>
 
 <style lang="less">
@@ -75,7 +98,7 @@ export default {
   margin-left: 28px;
   border: 1px solid;
 }
-.historyList{
-    margin-left:25px;
+.historyList {
+  margin-left: 25px;
 }
 </style>
