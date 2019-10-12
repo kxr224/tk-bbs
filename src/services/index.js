@@ -20,9 +20,24 @@ function getRecomList(){
 
 
 }
-
-function getTheme(){
-    return http.post("/api/bbs/bbsCategory/open/list")
+//获取主题列表
+function getTheme(pageNum,pageSize){
+    let formdate = new FormData()
+    formdate.append('pageNum',pageNum)
+    formdate.append('pageSize',pageSize)
+    return http.post("/api/bbs/bbsCategory/open/list",formdate)
+}
+//点击主题获取响应帖子列表
+function getThemeArtList(categoryId){
+    let formdate=new FormData()
+    formdate.append("categoryId",categoryId)
+    return http.post("/api/bbs/bbsPosts/open/list",formdate)
+}
+//获取搜索结果
+function getSearchRes(title){
+    let formdate=new FormData()
+    formdate.append("title",title)
+    return http.post("/api/bbs/bbsPosts/open/list",formdate)
 }
 //获取评论文本的
 function getCommentContent(postsId){
@@ -62,6 +77,7 @@ function deleteComment(ids){
     return http.post('/api/bbs/bbsComment/site/remove',formdate)
 }
 export {getTopics,publish,iJoin,getRecomList,
-    getTheme,getCommentContent,sendComment,sendRbComment,getRbCommentList,
+    getTheme,getThemeArtList,getSearchRes,
+    getCommentContent,sendComment,sendRbComment,getRbCommentList,
     deleteComment
 }
