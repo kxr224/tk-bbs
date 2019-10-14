@@ -12,7 +12,7 @@
       <div class="history">
         <ul v-show="showHisory" class="historyList">
           <li>搜索历史</li>
-          <li v-for="item in historySearch" :key="item.keyWord" @click="apperHis">
+          <li v-for="item in historySearch" :key="item.keyWord" @click="searchHis(item.keyWord)">
             <span class="el-icon-time"></span>
             {{item.keyWord}}
           </li>
@@ -45,6 +45,13 @@ export default {
     };
   },
   methods: {
+    searchHis(keyWord){
+      this.inputMsg=keyWord
+       getSearchRes(this.inputMsg).then(res => {
+       return this.rows = res.rows;
+      })
+    
+    },
      getInvitation(item){
        console.log(item)
     //  this.$store.commit({

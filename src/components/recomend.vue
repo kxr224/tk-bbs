@@ -24,13 +24,13 @@ export default {
   },
   created() {
     getRecomList().then(res => {
-      console.log(res)
+    
       this.rows = res.rows;
     });
   },
   methods: {
     getInvitation(item){
-     console.log(item)
+ 
     //  this.$store.commit({
     //         type: "changeInvitation",
     //         invitation: item
