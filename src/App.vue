@@ -7,7 +7,7 @@
         <div id="add">+</div>
       </router-link>
 
-      <mt-tab-item id="login" @click="goMine">我的</mt-tab-item>
+      <mt-tab-item id="login" @click.native.capture="goMine">我的</mt-tab-item>
     </mt-tabbar>
 
     <router-view />
@@ -24,7 +24,6 @@ export default {
   methods: {
       goIndex(){
           this.$router.push({path:'/index/recomend'})
-          console.log(1)
       },
       goMine(){
           this.$router.push({path:'/mine'})
@@ -32,7 +31,6 @@ export default {
   },
   created() {
     checkIsLogin().then(res => {
-      console.log(res);
       if(res.code==0){
           this.$store.commit({
             type: "loginsucess",
@@ -90,10 +88,10 @@ export default {
   font-size: 43px;
   background-color: #26a2ff;
   border-radius: 50%;
-  width: 52px;
-  height: 52px;
+  width: 58.8px;
+  height: 58.8px;
   text-align: center;
-  line-height: 46px;
+  line-height: 53px;
   color: white;
 }
 .router-link-exact-active {
@@ -103,5 +101,6 @@ a:-webkit-any-link {
   color: -webkit-link;
   cursor: pointer;
   text-decoration: none;
+  background:#e4e7ed;
 }
 </style>

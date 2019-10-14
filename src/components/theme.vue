@@ -9,7 +9,7 @@
         <img :src="item.cover" alt class="themeImg" />
       </li>
     </ul>-->
-    <el-row :gutter="10"  justify="space-around">
+    <el-row  justify="space-around">
       <el-col :span="8" v-for="item in rows" :key="item.name" class="category-item" @click.native.capture="detail(item)">
           <router-link
             :to="{path:'/themeArtList',query:{categoryId:item.categoryId,name:item.name}}"
@@ -60,8 +60,8 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 .themeContent {
-  height: calc(100vh - 110px);
-  overflow: scroll;
+  height: calc(100vh - 147px);
+  overflow-y: scroll;
 
 
  

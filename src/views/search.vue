@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <mt-header title="搜索帖子或主题">
+  <div id="cjy">
+    <mt-header title="搜索帖子">
       <router-link to="/" slot="left">
         <mt-button icon="back">返回</mt-button>
       </router-link>
@@ -20,7 +20,20 @@
         </ul>
       </div>
       <div class="list" v-if="show">
-        <ul class="showList" v-for="item in rows" :key="item.id">
+        <ul class="showList" v-for="item in rows" :key="item.id" @click="getInvitation(item.postsId)">
+        <div class="listLeft">
+          <img :src="item.avatar" class="pictureTitles" />
+          <span class="writers">{{item.userName}}</span>
+        </div>
+        <div class="listMid">
+          <li class="titles">{{item.title}}</li>
+          <div class="contains">{{item.intro}}</div>
+        </div>
+        <div class="listRight">
+          <img :src="item.coverImgUrl" alt class="pictures" />
+        </div>
+      </ul>
+        <!-- <ul class="showList" v-for="item in rows" :key="item.id">
           <li @click="getInvitation(item.postsId)">{{item.title}}</li>
 
           <img :src="item.coverImgUrl" alt class="picture" />
@@ -28,7 +41,7 @@
           <div class="contain">{{item.intro}}</div>
           <img :src="item.avatar" class="pictureTitle" />
           <span class="writer">{{item.userName}}</span>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
@@ -121,20 +134,90 @@ export default {
 </script>
 
 <style lang="less">
+#cjy{
+  background-color: #f5f7fa;
+}
 .search {
-  width: 80%;
+  width: 70%;
   height: 25px;
   margin-top: 2%;
-  margin-left: 9%;
+  margin-left: 12%;
   margin-bottom: 2%;
   border: 1px solid;
   border-radius: 10px;
+  outline: none;
+}
+#el-button{
+  margin-bottom: 2%;
 }
 .historyList {
   margin-left: 25px;
 }
 .searchMain {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 140px);
   overflow: scroll;
+   background: #f5f7fa;
+  .main{
+      overflow-y: scroll;
+    padding: 10px;
+    height: calc(100vh - 99px);
+    box-sizing: border-box;
+    background: #f5f7fa;
+    .showList {
+  margin-left: 3%;
+  width: 90%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 3px 3px rgba(242, 246, 252, 0.31);
+  background: white;
+
+  .listLeft {
+    text-align: center;
+    width: 25%;
+    .pictureTitles {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+    .writers {
+      font-size: 12px;
+    }
+  }
+  .listMid {
+    text-align: left;
+    width: 50%;
+    .titles {
+      text-align: left;
+      list-style: none;
+      padding: 5px 0;
+      font-size: 16px;
+      font-weight: bolder;
+    }
+    .contains {
+      color: #888888;
+      padding: 2px;
+      font-size: 12px;
+      text-overflow: -o-ellipsis-lastline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+  .listRight {
+    padding: 2px;
+    width: 25%;
+    .pictures {
+      width: 100%;
+      border-radius: 20px;
+    }
+  }
+}
+  }
 }
 </style>
