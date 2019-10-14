@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoading">
-   
- 
+
+
      <mt-header title="个人主页">
       <router-link to="/index" slot="left">
         <mt-button icon="back">返回</mt-button>
@@ -93,9 +93,9 @@ export default {
     },
     //退出登陆
     exitLogin() {
-      exitBbTalk().then(res => {
-        console.log("退出成功");
-      });
+      exitBbTalk()
+      // .then(res => {
+      // });
     }
   },
   data() {

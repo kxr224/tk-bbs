@@ -27,14 +27,14 @@ export default {
     };
   },
   methods: {
-      goMsgDetail(item){
+    goMsgDetail(item) {
       this.$router.push({
-            path:'/msgDetail',
-            query:{
-                 postsId:item.postsId
-            }
-            })
-      }
+        path: "/msgDetail",
+        query: {
+          postsId: item.postsId
+        }
+      });
+    }
   },
   created() {
     iJoin().then(res => {
@@ -47,15 +47,18 @@ export default {
 #msgCard {
   height: calc(100vh - 100px);
   overflow: scroll;
- padding: 10px;
+  padding: 10px;
+  background: #f5f7fa;
 }
 .msgBox {
-     border-radius: 20px;
+  border-radius: 10px;
   margin-top: 10px;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  box-shadow: 4px 5px #ccc;
+  -webkit-box-shadow: 4px 5px #ccc;
+  box-shadow: 2px 2px #ccc;
+  background-color: white;
   #topBox {
     overflow: hidden;
   }

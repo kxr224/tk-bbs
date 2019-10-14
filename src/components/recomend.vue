@@ -35,17 +35,11 @@ export default {
   },
   created() {
     getRecomList().then(res => {
-      console.log(res);
       this.rows = res.rows;
     });
   },
   methods: {
     getInvitation(item) {
-      console.log(item);
-      //  this.$store.commit({
-      //         type: "changeInvitation",
-      //         invitation: item
-      //       });
       this.$router.push({
         path: "/msgDetail",
         query: {
@@ -63,7 +57,7 @@ export default {
   padding: 0;
 }
 #mainList {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 150px);
   overflow: scroll;
   padding: 8px 0 20px;
   margin-top: 5px;

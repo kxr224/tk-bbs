@@ -340,7 +340,7 @@ export default {
         font-size: 12px;
       }
       i:hover {
-        color: red;
+        color: yellowgreen;
         font-size: 13px;
       }
     }
