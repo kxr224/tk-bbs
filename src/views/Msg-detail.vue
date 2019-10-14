@@ -107,6 +107,7 @@ export default {
     },
     goComment() {
       this.$refs.commentInput.focus();
+      // this.$refs.commentInput.scrollIntoView()
       this.isShow = true;
     },
     sendAComent() {
@@ -126,17 +127,18 @@ export default {
       this.input = "";
     },
     rbComment(commentId, item) {
+       this.$forceUpdate();
       this.$refs.commentInput.focus();
       this.isShow = false;
       this.commentId = commentId;
       //再次点击清除这个列表，达到再次点击关闭回复这个小页面
       if (item.rbCommentList) {
-        this.$forceUpdate();
+       
         item.rbCommentList = "";
       } else {
         //调用回复列表的接口
         getRbCommentList(commentId).then(res => {
-          this.$forceUpdate();
+        this.$forceUpdate();        
           if (res.code == 0) {
             item.rbCommentList = res.rows;
 
@@ -226,7 +228,7 @@ export default {
 
 #innerBox {
   overflow: hidden;
-  background-color: #eee;
+  background-color: #f5f7fa;
   background-position: center;
   background-size: 100%;
   #picture {
@@ -254,7 +256,7 @@ export default {
 #msgArea {
   padding: 0 30px;
   text-align: left;
-  background-color: #eee;
+  background-color: #f5f7fa;
   .imgBox {
     width: 100%;
     img {
@@ -285,7 +287,7 @@ export default {
   padding: 0 30px;
   text-align: left;
   height: calc(100% - 100px);
-  background-color: #eee;
+  background-color: #f5f7fa;
   h5 {
     padding: 10px 0;
   }
@@ -295,7 +297,8 @@ export default {
     margin: 10px 10px;
     border: 1px solid #ccc;
     box-shadow: 2px 2px #ccc;
-    border-radius: 20px;
+    border-radius: 10px;
+        background: #f5deb342;
     img {
       width: 25px;
       border-radius: 50%;
@@ -308,11 +311,12 @@ export default {
       font-size: 13px;
     }
     .rbCommentCard {
-      text-align: left;
-      margin: 0 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 5px;
+    text-align: left;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
       img {
         width: 20px;
         border-radius: 50%;

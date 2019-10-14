@@ -1,11 +1,14 @@
 <template>
   <div id="indexBox">
-    <router-link to="/search">
-      <input type="text" class="searchInput" placeholder="搜索一下" />
-    </router-link>
-    <el-button style="color:#eee" id="el-button" icon="el-icon-search" circle></el-button>
-    <tablist></tablist>
-    <transition name="movie-tran" mode="out-in">
+    <header class="index-header">
+      <router-link to="/search">
+        <input type="text" class="searchInput" placeholder="搜索一下" />
+      </router-link>
+      <!-- <el-button style="color:#eee" id="el-button" icon="el-icon-search" circle></el-button> -->
+      <tablist></tablist>
+    </header>
+
+    <transition name="movie-tran">
       <router-view></router-view>
     </transition>
   </div>
@@ -21,6 +24,10 @@ export default {
 </script>
 
 <style lang="less">
+.index-header{
+      border-bottom: 1px solid #ccc;
+}
+
 #indexBox {
   text-align: center;
   height: calc(100vh - 58.8px);
@@ -36,13 +43,12 @@ export default {
   margin-left: 10px;
 }
 .searchInput {
-  width: 70%;
-  border-radius: 20px;
-  height: 25px;
-  margin-top: 5px;
-  background-color: #eee;
-  // margin-left: 10%;
-  border: 1px solid #eee;
+    width: 88%;
+    border-radius: 15px;
+    height: 34px;
+    margin-top: 10px;
+    background-color: #eee;
+    border: 1px solid #eee;
 }
 
 .button {
@@ -58,10 +64,10 @@ export default {
 }
 .movie-tran-enter-to,
 .movie-tran-leave {
-  transform: translateX(100%);
+  transform: translateX(-100%);
 }
 .movie-tran-enter-active,
-.movie-tran-leave {
+.movie-tran-leave-active {
   transition: all 0.3s ease;
 }
 </style>

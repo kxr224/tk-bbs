@@ -1,4 +1,6 @@
 <template>
+  <div v-if="isLoading">
+    <div class="el-icon-back" @click="goLast"></div>
   <div>
      <mt-header title="个人主页">
       <router-link to="/index" slot="left">
@@ -55,6 +57,7 @@
 <script>
 import { getPerson } from "@/services/mine";
 import { exitBbTalk } from "@/services/index";
+import { checkIsLogin } from "@/services/mine";
 export default {
   methods: {
     handleAvatarSuccess(res, file) {
@@ -97,7 +100,8 @@ export default {
   },
   data() {
     return {
-      msg: {}
+      msg: {},
+      isLoading: false
     };
   },
 
@@ -107,11 +111,13 @@ export default {
     }
   },
   created() {
-    if (!this.$store.state.islogin) {
-      this.$router.push({ path: "/login" });
-    }
-    getPerson().then(res => {
-      this.msg = res;
+    checkIsLogin().then(res => {
+      this.isLoading = true;
+      if (res.code == 0) {
+        this.msg = res.data;
+      } else {
+        this.$router.push({ path: "/login" });
+      }
     });
   }
 };
@@ -129,7 +135,7 @@ export default {
 
   // top: 241px;
   font-size: 26px;
-  
+
 }
 .title > h1 {
   text-align: center;
@@ -161,7 +167,7 @@ export default {
   width: 100px;
   height: 100px;
   display: block;
- 
+
 }
 .personCard {
 
@@ -173,8 +179,9 @@ export default {
     justify-content: center;
     align-items: center;
     padding-top: 20px;
-  
 
+
+  /*margin-top: 17%;*/
 }
 .el-icon-back:before {
   content: "\E6EA";
@@ -197,8 +204,6 @@ export default {
   height: 100px;
   display: block;
   border-radius: 50%;
-  /*margin-left: 19%;*/
- 
 
 }
 a {

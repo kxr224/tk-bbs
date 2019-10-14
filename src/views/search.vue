@@ -16,7 +16,7 @@
             <span class="el-icon-time"></span>
             {{item.keyWord}}
           </li>
-          
+
         </ul>
       </div>
       <div class="list" v-if="show">
@@ -48,7 +48,7 @@ export default {
   },
   watch: {
     inputMsg() {
-      
+
       if (this.inputMsg == "") {
         this.show = false;
       } else {
@@ -78,9 +78,6 @@ export default {
     apperHis() {
       this.showHisory = true;
     },
-    // disHis(){
-    //    this.showHisory = false;
-    // },
     showRes() {
       getSearchRes(this.inputMsg).then(res => {
         return (this.rows = res.rows);

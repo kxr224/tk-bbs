@@ -65,19 +65,22 @@ export default {
 #mainList {
   height: calc(100vh - 110px);
   overflow: scroll;
-  border-top: 1px solid #ccc;
-    margin-top: 5px;
-  // text-align: center;
+  padding: 8px 0 20px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  background: #f5f7fa;
   .showLists {
-    border: 1px solid #ccc;
+   
     margin-left: 3%;
     width: 90%;
-    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-around;
-    border-radius: 20px;
-    padding: 5px;
-    box-shadow: 4px 4px #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 3px 3px rgba(242, 246, 252, 0.31);
+    background: white;
+
     //////////////////重构页面样式开始
     .listLeft {
       text-align: center;
