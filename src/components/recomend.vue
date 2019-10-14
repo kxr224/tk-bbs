@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     getInvitation(item){
-   console.log(item)
+     console.log(item)
     //  this.$store.commit({
     //         type: "changeInvitation",
     //         invitation: item
@@ -54,9 +54,10 @@ export default {
   margin-top: 10px;
 }
 .showList {
-  margin-left: -37px;
-  margin-top: 10px;
-  position: relative;
+    margin-left: 10%;
+    margin-top: 4%;
+    position: relative;
+
   // overflow-y: scroll;
 
   li {

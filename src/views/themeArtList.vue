@@ -1,5 +1,9 @@
 <template>
     <div class="main">
+      <mt-header title="">
+  <router-link to="/index/theme" slot="left">
+    <mt-button icon="back">返回</mt-button>  </router-link>
+    </mt-header>
        <h2>{{name}}</h2>
        <ul class="showList" v-for="item in rows" :key="item.id">
         
@@ -44,9 +48,9 @@ export default {
   margin-top: 10px;
 }
 .showList {
-  margin-left: -37px;
-  margin-top: 10px;
-  position: relative;
+    margin-left: 3%;
+    margin-top: 10%;
+    position: relative;
   // overflow-y: scroll;
 
   li {
@@ -72,6 +76,10 @@ export default {
   position: absolute;
   top: 14px;
   left: 268px;
+}
+h2{
+      margin-top: 8%;
+    margin-left: 5%;
 }
 .contain{
      width: 159px;

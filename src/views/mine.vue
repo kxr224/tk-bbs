@@ -106,8 +106,8 @@ export default {
 }
 #name {
   position: absolute;
-        right: 187px;
-    top: 241px;
+   right: 48%;
+    top: 31%;
     font-size: 26px;
 }
 .title > h1 {
@@ -143,7 +143,7 @@ export default {
 }
 .personCard {
   border-radius: 10px;
-  margin-top:50px;
+     margin-top: 17%;
 }
 .el-icon-back:before {
   content: "\E6EA";
@@ -167,6 +167,7 @@ export default {
   height: 100px;
   display: block;
   border-radius: 50%;
+      margin-left: 19%;
 }
 a{
     text-decoration: none;

@@ -25,11 +25,13 @@ export default {
      margin-left:10px;
  }
 .searchInput{
-    width:250px;
-    height:25px;
-    margin-top:5px;
-    margin-left:56px;
-     border: 1px solid
+     width: 80%;
+    height: 25px;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+     border: 1px solid;
+     border-radius: 10px;
 
 }
 .button{

@@ -18,7 +18,7 @@
     <div class="but">
       <mt-button type="primary" size="large" @click="log" >登陆</mt-button>
     </div>
-    <p v-if="see">用户名或密码错误</p>
+    <p v-if="see" class="alert">用户名或密码错误</p>
 
     <p class="noNum">
       没有账号？去
@@ -96,8 +96,11 @@ export default {
 .noNum {
   margin-top: 50px;
 }
-.tip {
+.tip{
   color: red;
   font-size: 13px;
+}
+.alert {
+  color:red
 }
 </style>
