@@ -47,7 +47,7 @@ a:-webkit-any-link {
 
 .tab-list{
     .router-link-active{
-  border-bottom:2px solid #26a2ff
+  border-bottom:1px solid #26a2ff
 }
 
 }

@@ -1,15 +1,26 @@
 <template>
-  <div class="mainList">
-    <ul class="showList" v-for="item in rows" :key="item.id" @click="getInvitation(item)">
-      <li>{{item.title}}</li>
-     
-          <img :src="item.coverImgUrl" alt="" class="picture">
-      
-      <div class="contain">
-          {{item.intro}}
+  <div id="mainList">
+    <ul class="showLists" v-for="item in rows" :key="item.id" @click="getInvitation(item)">
+      <!-- /////////////////开始 -->
+      <div class="listLeft">
+        <img :src="item.avatar" class="pictureTitles" />
+        <span class="writers">{{item.userName}}</span>
       </div>
+      <div class="listMid">
+        <li class="titles">{{item.title}}</li>
+        <div class="contains">{{item.intro}}</div>
+      </div>
+      <div class="listRight">
+        <img :src="item.coverImgUrl" alt class="pictures" />
+      </div>
+      <!-- /////////////////结束 -->
+      <!-- <li>{{item.title}}</li>
+
+      <img :src="item.coverImgUrl" alt class="picture" />
+
+      <div class="contain">{{item.intro}}</div>
       <img :src="item.avatar" class="pictureTitle" />
-      <span class="writer">{{item.userName}}</span>
+      <span class="writer">{{item.userName}}</span>-->
     </ul>
   </div>
 </template>
@@ -24,80 +35,133 @@ export default {
   },
   created() {
     getRecomList().then(res => {
-    
+      console.log(res);
       this.rows = res.rows;
     });
   },
   methods: {
-    getInvitation(item){
- 
-    //  this.$store.commit({
-    //         type: "changeInvitation",
-    //         invitation: item
-    //       });
-          this.$router.push({
-            path:'/msgDetail',
-            query:{
-                 invitationDetail:item
-            }
-            })
+    getInvitation(item) {
+      console.log(item);
+      //  this.$store.commit({
+      //         type: "changeInvitation",
+      //         invitation: item
+      //       });
+      this.$router.push({
+        path: "/msgDetail",
+        query: {
+          postsId: item.postsId
+        }
+      });
     }
-  },
+  }
 };
 </script>
 
-<style lang="less" scoped>
-.pictureTitle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-top: 10px;
+<style lang="less">
+* {
+  margin: 0;
+  padding: 0;
 }
-.showList {
-    margin-left: 10%;
-    margin-top: 4%;
-    position: relative;
-
-  // overflow-y: scroll;
-
-  li {
-    margin-top: 10px;
-    box-shadow: 11px 6px -2px #7bc1f6;
-    border-top: 1px solid #7bc1f6;
-    font-size: 18px;
-    font-weight: bold;
-    
-  }
-  .writer {
-    font-size: 14px;
-  }
-}
-.mainList {
-  height: calc(100vh - 148px);
+#mainList {
+  height: calc(100vh - 110px);
   overflow: scroll;
-}
-.picture{
-  width: 50px;
-  height: 50px;
-//   background: #7bc1f6;
-  position: absolute;
-  top: 14px;
-  left: 268px;
-}
-.contain{
-     width: 159px;
-    height: 50px;
-    position: absolute;
-    top: 24px;
-    left: 90px;
-    font-size: 13px;
-    text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-    
+  border-top: 1px solid #ccc;
+    margin-top: 5px;
+  // text-align: center;
+  .showLists {
+    border: 1px solid #ccc;
+    margin-left: 3%;
+    width: 90%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 4px 4px #ccc;
+    //////////////////重构页面样式开始
+    .listLeft {
+      text-align: center;
+      width: 25%;
+      .pictureTitles {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+      }
+      .writers {
+        font-size: 12px;
+      }
+    }
+    .listMid {
+      text-align: left;
+      width: 50%;
+      .titles {
+        text-align: left;
+        list-style: none;
+        padding: 5px 0;
+        font-size: 16px;
+        font-weight: bolder;
+      }
+      .contains {
+        color: #888888;
+        padding: 2px;
+        font-size: 12px;
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+    .listRight {
+      padding: 2px;
+      width: 25%;
+      .pictures {
+        width: 100%;
+        border-radius: 20px;
+      }
+    }
+    ///////////////////////////重构结束
+    // li {
+    //   margin-top: 10px;
+    //   // box-shadow: 11px 6px -2px #7bc1f6;
+    //   border-top: 1px solid #7bc1f6;
+    //   font-size: 18px;
+    //   font-weight: bold;
+    // }
+    // .picture {
+    //   width: 50px;
+    //   height: 50px;
+    //   //   background: #7bc1f6;
+    // position: absolute;
+    //   top: 14px;
+    //   left: 268px;
+    // }
+    // .contain {
+    //   width: 159px;
+    //   height: 50px;
+    //   position: absolute;
+    //   top: 24px;
+    //   left: 90px;
+    //   font-size: 11px;
+    //   text-overflow: -o-ellipsis-lastline;
+    //   overflow: hidden;
+    //   text-overflow: ellipsis;
+    //   display: -webkit-box;
+    //   -webkit-line-clamp: 3;
+    //   line-clamp: 3;
+    //   -webkit-box-orient: vertical;
+    // }
+    // .pictureTitle {
+    //   width: 30px;
+    //   height: 30px;
+    //   border-radius: 50%;
+    //   margin-top: 10px;
+    // }
+    // .writer {
+    //   font-size: 14px;
+    // }
+  }
 }
 </style>

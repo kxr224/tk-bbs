@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import {checkIsLogin} from './services/mine'
 export default {
     data() {
         return {
@@ -21,7 +22,12 @@ export default {
         }
     },
     created() {
-
+        checkIsLogin().then(res=>{
+            console.log(res)
+           if(res.code==500){
+           this.$router.push({path:'/login'})
+           }
+        })
         if (this.$route.path == "/index") {
             this.selected = "index";
         } else if (this.$route.path == "/login") {

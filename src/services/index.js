@@ -9,7 +9,7 @@ function publish(categoryId,title,intro,coverImgUrl){
     formdate.append('title',title)
     formdate.append('intro',intro)
     formdate.append('coverImgUrl',coverImgUrl)
-    formdate.append('rememberMe',true)
+    // formdate.append('rememberMe',true)
     return http.post('/api/bbs/bbsPosts/site/add',formdate)
 }
 function iJoin(){
@@ -43,7 +43,7 @@ function getSearchRes(title){
 function getCommentContent(postsId){
     let formdate = new FormData()
     formdate.append('postsId',postsId)
-    formdate.append('rememberMe',true)
+    // formdate.append('rememberMe',true)
     return http.post('/api/bbs/bbsComment/open/list',formdate)
 }
 //发送评论
@@ -51,7 +51,7 @@ function sendComment(postsId,commentContent){
     let formdate = new FormData()
     formdate.append('postsId',postsId)
     formdate.append('commentContent',commentContent)
-    formdate.append('rememberMe',true)
+    // formdate.append('rememberMe',true)
     return http.post('/api/bbs/bbsComment/site/add',formdate)
 }
 //发送评论的回复
@@ -60,24 +60,34 @@ function sendRbComment(postsId,parentId,commentContent){
     formdate.append('postsId',postsId)
     formdate.append('parentId',parentId)
     formdate.append('commentContent',commentContent)
-    formdate.append('rememberMe',true)
+    // formdate.append('rememberMe',true)
     return http.post('/api/bbs/bbsComment/site/reply/add',formdate)
 }
+//获取评论回复列表
 function getRbCommentList(parentId){
     let formdate = new FormData()
     formdate.append('parentId',parentId)
-    formdate.append('rememberMe',true)
+    // formdate.append('rememberMe',true)
     return http.post('/api/bbs/bbsComment/open/reply/list',formdate)
 }
 //删除评论接口
 function deleteComment(ids){
     let formdate = new FormData()
     formdate.append('ids',ids)
-    formdate.append('rememberMe',true)
-    return http.post('/api/bbs/bbsComment/site/remove',formdate)
+    // formdate.append('rememberMe',true)
+    return http.post('/api/bbs/bbsPosts/site/remove',formdate)
+}
+//获取帖子详情
+function getInvitationDetails(postsId){
+    
+    return http.get(`/api/bbs/bbsPosts/open/detail/${postsId}`)
+}
+//退出登陆
+function exitBbTalk(){
+    return http.get('/api/logout')
 }
 export {getTopics,publish,iJoin,getRecomList,
     getTheme,getThemeArtList,getSearchRes,
     getCommentContent,sendComment,sendRbComment,getRbCommentList,
-    deleteComment
+    deleteComment,getInvitationDetails,exitBbTalk
 }

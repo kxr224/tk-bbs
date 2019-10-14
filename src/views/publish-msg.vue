@@ -6,90 +6,101 @@
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
-<div id="innerBox">
+    <div id="innerBox">
       <div id="selectTopic">
-      <span class="topic" :style="{'color':item.categoryId==categoryId?'red':'green'}" v-for="(item,index) in list" :key="index" @click="selectTopic(item.categoryId)">{{item.name}}</span>
-    </div>
-    <h4>请输入发布的内容:</h4>
-    <div id="msg">
-      <input id="msgTitle" placeholder=" 文章标题 :" v-model="title" type="text">
-     
-      <textarea placeholder=" 文章内容 : " id="textarea" cols="50" rows="8" v-model="intro"></textarea>
-      <el-upload
-        class="avatar-uploader"
-        action="/api/nos/upload/image"
-        name="file"
-        :data="{fileUseForEnum:'BBS'}"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload"
-      >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-      <span>添加图片</span>
-    </div>
-    <div id="submit">
+        <span
+          class="topic"
+          :style="{'color':item.categoryId==categoryId?'red':'green'}"
+          v-for="(item,index) in list"
+          :key="index"
+          @click="selectTopic(item.categoryId)"
+        >{{item.name}}</span>
+      </div>
+      <h4>请输入发布的内容:</h4>
+      <div id="msg">
+        <input id="msgTitle" placeholder=" 文章标题 :" v-model="title" type="text" />
+
+        <textarea placeholder=" 文章内容 : " id="textarea" cols="50" rows="8" v-model="intro"></textarea>
+        <el-upload
+          class="avatar-uploader"
+          action="/api/nos/upload/image"
+          name="file"
+          :data="{fileUseForEnum:'BBS'}"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+          :headers="{'X-Requested-With':'XMLHttpRequest'}"
+        >
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <span>添加图片</span>
+      </div>
+      <div id="submit">
         <el-button type="success" icon="el-icon-check" round @click="publish()">发布</el-button>
-        </div>
-</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import {getTopics,publish} from '@/services/index.js'
+import { getTopics, publish } from "@/services/index.js";
 export default {
   data() {
     return {
-      list: [
-        
-      ],
+      list: [],
       imageUrl: "",
-      categoryId:'',
-      title:'',
-      intro:'',
+      categoryId: "",
+      title: "",
+      intro: ""
     };
   },
   methods: {
     handleAvatarSuccess(res) {
+      if(res.code==403){
+        alert('请先登陆')
+      }
+      // debugger
       // this.imageUrl = URL.createObjectURL(file.raw);
-      this.imageUrl=res.url
-     
+      this.imageUrl = res.url;
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isGIF = file.type === "image/gif";
+      const isPNG = file.type === "image/png";
+      const isBMP = file.type === "image/bmp";
+      const isLt2M = file.size / 1024 / 1024 < 10;
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+      if (!isJPG && !isGIF && !isPNG && !isBMP) {
+        this.$message.error("上传头像图片只能是 JPG/GIF/PNG/BMP格式!");
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传头像图片大小不能超过 10MB!");
       }
-      return isJPG && isLt2M;
+      return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
     },
-    selectTopic(categoryId){
-        this.categoryId = categoryId
-       
+    selectTopic(categoryId) {
+      this.categoryId = categoryId;
     },
-    publish(){
-      publish(this.categoryId,this.title,this.intro,this.imageUrl).then(res=>{
-       if(res.code==0){
-                      this.$notify({
-          title: '帖子发布成功',
-        //   message: '这是一条成功的提示消息',
-          type: 'success',
-          position:'top-left'
-        });
-        // this.$router.push({path:'/'})
-       }
-      })
+    publish() {
+      publish(this.categoryId, this.title, this.intro, this.imageUrl).then(
+        res => {
+          if (res.code == 0) {
+            this.$notify({
+              title: "帖子发布成功",
+              //   message: '这是一条成功的提示消息',
+              type: "success",
+              position: "top-left"
+            });
+            // this.$router.push({path:'/'})
+          }
+        }
+      );
     }
   },
-  created(){
-   
-  getTopics().then(res=>{
-   this.list = res.rows
-  })
+  created() {
+    getTopics().then(res => {
+      this.list = res.rows;
+    });
   }
 };
 </script>
@@ -98,9 +109,9 @@ export default {
   margin: 0;
   padding: 0;
 }
-#innerBox{
-  overflow:scroll;
-  height: calc(100vh - 100px)
+#innerBox {
+  overflow: scroll;
+  height: calc(100vh - 100px);
 }
 #selectTopic {
   padding: 5px;
@@ -118,20 +129,19 @@ h4 {
   padding: 20px;
 }
 #msg {
-    text-align: center;
+  text-align: center;
   border: 1px solid #ccc;
-  #msgTitle{
+  #msgTitle {
     padding: 2px;
-   border: 0;
-   outline: none;
-   border-bottom: 1px dashed #ccc;
-   margin-bottom: 10px;
+    border: 0;
+    outline: none;
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 10px;
   }
 }
-#submit{
-    padding: 5px;
-    text-align: right;
-  
+#submit {
+  padding: 5px;
+  text-align: right;
 }
 #textarea {
   outline: none;
@@ -161,7 +171,7 @@ h4 {
   height: 178px;
   display: block;
 }
-.avatar-uploader-icon[data-v-02473fce]{
+.avatar-uploader-icon[data-v-02473fce] {
   background-color: #eee;
 }
 </style>
