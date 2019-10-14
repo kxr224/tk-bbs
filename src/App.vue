@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mt-tabbar v-model="selected">
+    <mt-tabbar id="tabBar" v-model="selected">
       <mt-tab-item id="index">首页</mt-tab-item>
 
       <router-link to="/publishMsg">
@@ -48,6 +48,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// #tabBar{
+//     position: fixed;
+//     bottom: 0px;
+// }
 ::v-deep .mt-tabbar {
     height: 450px;
 }

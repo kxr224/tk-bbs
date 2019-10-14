@@ -20,7 +20,7 @@
       </div>
       <div class="list">
         <ul class="showList" v-for="item in rows" :key="item.id">
-          <li  @click="getInvitation(item)">{{item.title}}</li>
+          <li  @click="getInvitation(item.postsId)">{{item.title}}</li>
 
           <img :src="item.coverImgUrl" alt class="picture" />
 
@@ -61,7 +61,7 @@ export default {
           this.$router.push({
             path:'/msgDetail',
             query:{
-                 invitationDetail:item
+                postsId  :item
             }
             })
     },

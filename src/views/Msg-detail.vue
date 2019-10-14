@@ -1,7 +1,7 @@
 <template>
   <div id="box">
     <mt-header title="帖子详情">
-      <router-link to="" slot="left">
+      <router-link to="/index" slot="left">
         <mt-button icon="back" @click="goBack()">返回</mt-button>
       </router-link>
 
@@ -107,6 +107,7 @@ export default {
     },
     goComment() {
       this.$refs.commentInput.focus();
+      // this.$refs.commentInput.scrollIntoView()
       this.isShow = true;
     },
     sendAComent() {
@@ -126,17 +127,18 @@ export default {
       this.input = "";
     },
     rbComment(commentId, item) {
+       this.$forceUpdate();
       this.$refs.commentInput.focus();
       this.isShow = false;
       this.commentId = commentId;
       //再次点击清除这个列表，达到再次点击关闭回复这个小页面
       if (item.rbCommentList) {
-        this.$forceUpdate();
+       
         item.rbCommentList = "";
       } else {
         //调用回复列表的接口
         getRbCommentList(commentId).then(res => {
-          this.$forceUpdate();
+        this.$forceUpdate();        
           if (res.code == 0) {
             item.rbCommentList = res.rows;
 
