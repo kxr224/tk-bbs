@@ -1,7 +1,7 @@
 <template>
   <div id="box">
     <mt-header title="帖子详情">
-      <router-link to="/index" slot="left">
+      <router-link to="" slot="left">
         <mt-button icon="back" @click="goBack()">返回</mt-button>
       </router-link>
 
@@ -228,7 +228,7 @@ export default {
 
 #innerBox {
   overflow: hidden;
-  background-color: #eee;
+  background-color: #f5f7fa;
   background-position: center;
   background-size: 100%;
   #picture {
@@ -256,7 +256,7 @@ export default {
 #msgArea {
   padding: 0 30px;
   text-align: left;
-  background-color: #eee;
+  background-color: #f5f7fa;
   .imgBox {
     width: 100%;
     img {
@@ -287,7 +287,7 @@ export default {
   padding: 0 30px;
   text-align: left;
   height: calc(100% - 100px);
-  background-color: #eee;
+  background-color: #f5f7fa;
   h5 {
     padding: 10px 0;
   }
@@ -297,7 +297,8 @@ export default {
     margin: 10px 10px;
     border: 1px solid #ccc;
     box-shadow: 2px 2px #ccc;
-    border-radius: 20px;
+    border-radius: 10px;
+        background: #f5deb342;
     img {
       width: 25px;
       border-radius: 50%;
@@ -310,11 +311,12 @@ export default {
       font-size: 13px;
     }
     .rbCommentCard {
-      text-align: left;
-      margin: 0 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 5px;
+    text-align: left;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
       img {
         width: 20px;
         border-radius: 50%;

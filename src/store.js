@@ -15,6 +15,10 @@ export default new Vuex.Store({
           state.islogin=true
      }
      ,
+     loginfail(state){
+          state.islogin=false
+     }
+    
     //  changeInvitation(state,payload){
     //    state.invitation=payload.invitation
     //  }

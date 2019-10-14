@@ -10,7 +10,7 @@
       </li>
     </ul>-->
     <el-row :gutter="10"  justify="space-around">
-      <el-col :span="8" v-for="item in rows" :key="item.name" class="category-item">
+      <el-col :span="8" v-for="item in rows" :key="item.name" class="category-item" @click.native.capture="detail(item)">
           <router-link
             :to="{path:'/themeArtList',query:{categoryId:item.categoryId,name:item.name}}"
           >
@@ -35,7 +35,11 @@ export default {
       return (this.rows = res.rows);
     });
   },
-  methods: {}
+  methods: {
+    detail(item){
+      this.$router.push({path:'/themeArtList',query:{categoryId:item.categoryId,name:item.name}})
+    }
+  }
 };
 </script>
 

@@ -22,7 +22,7 @@ instance.interceptors.response.use(function (response) {
     // 错误处理
     const data = response.data;
     if (data.code !== 0) {
-        alert(data.msg);
+        // alert(data.msg);
     }
     // 精简了返回内容
     return data;
