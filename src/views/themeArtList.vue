@@ -5,7 +5,7 @@
     <mt-button icon="back">返回</mt-button>  </router-link>
     </mt-header>
        <h2>{{name}}</h2>
-       <ul class="showList" v-for="item in rows" :key="item.id">
+       <ul class="showList" v-for="item in rows" :key="item.id"  @click="getInvitation(item.postsId)">
         
       <li>{{item.title}}</li>
      
@@ -35,6 +35,17 @@ export default {
             return this.rows=res.rows
             
         })
+    },
+    methods: {
+        getInvitation(item) {
+   
+      this.$router.push({
+        path: "/msgDetail",
+        query: {
+          postsId: item 
+        }
+      });
+    },
     },
     
 }

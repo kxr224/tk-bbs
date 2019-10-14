@@ -6,7 +6,7 @@
       </router-link>
     </mt-header>
 
-    <input type="text" class="search" v-model="inputMsg" @focus="apperHis" @keyup="showRes" />
+    <input type="text" class="search" v-model="inputMsg" @focus="apperHis"  @keyup="showRes" />
     <el-button id="el-button" icon="el-icon-search" circle @click="handleSearch"></el-button>
     <div class="searchMain">
       <div class="history">
@@ -16,11 +16,12 @@
             <span class="el-icon-time"></span>
             {{item.keyWord}}
           </li>
+          
         </ul>
       </div>
-      <div class="list">
+      <div class="list" v-if="show">
         <ul class="showList" v-for="item in rows" :key="item.id">
-          <li  @click="getInvitation(item)">{{item.title}}</li>
+          <li @click="getInvitation(item.postsId)">{{item.title}}</li>
 
           <img :src="item.coverImgUrl" alt class="picture" />
 
@@ -41,37 +42,48 @@ export default {
       inputMsg: "",
       historySearch: [],
       showHisory: false,
-      rows: []
+      rows: [],
+      show: false
     };
   },
+  watch: {
+    inputMsg() {
+      
+      if (this.inputMsg == "") {
+        this.show = false;
+      } else {
+        this.show = true;
+      }
+    }
+  },
   methods: {
-    searchHis(keyWord){
-      this.inputMsg=keyWord
-       getSearchRes(this.inputMsg).then(res => {
-       return this.rows = res.rows;
-      })
-    
+    searchHis(keyWord) {
+      this.inputMsg = keyWord;
+      getSearchRes(this.inputMsg).then(res => {
+        return (this.rows = res.rows);
+      });
     },
-     getInvitation(item){
-       console.log(item)
-    //  this.$store.commit({
-    //         type: "changeInvitation",
-    //         invitation: item
-    //       });
-          this.$router.push({
-            path:'/msgDetail',
-            query:{
-                 invitationDetail:item
-            }
-            })
+    getInvitation(item) {
+      //  this.$store.commit({
+      //         type: "changeInvitation",
+      //         invitation: item
+      //       });
+      this.$router.push({
+        path: "/msgDetail",
+        query: {
+          postsId: item
+        }
+      });
     },
     apperHis() {
       this.showHisory = true;
     },
+    // disHis(){
+    //    this.showHisory = false;
+    // },
     showRes() {
       getSearchRes(this.inputMsg).then(res => {
-        console.log(res);
-        return this.rows = res.rows;
+        return (this.rows = res.rows);
       });
     },
     //  showResult(){
@@ -113,20 +125,19 @@ export default {
 
 <style lang="less">
 .search {
-     width: 80%;
-    height: 25px;
-    margin-top: 2%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-     border: 1px solid;
-     border-radius: 10px;
+  width: 80%;
+  height: 25px;
+  margin-top: 2%;
+  margin-left: 9%;
+  margin-bottom: 2%;
+  border: 1px solid;
+  border-radius: 10px;
 }
 .historyList {
   margin-left: 25px;
 }
-.searchMain{
-     height: calc(100vh - 100px);
-    overflow: scroll;
+.searchMain {
+  height: calc(100vh - 100px);
+  overflow: scroll;
 }
-
 </style>

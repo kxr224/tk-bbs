@@ -1,29 +1,35 @@
 <template>
   <div>
-    <div class="el-icon-back" @click="goLast"></div>
+     <mt-header title="个人主页">
+      <router-link to="/index" slot="left">
+        <mt-button icon="back">返回</mt-button>
+      </router-link>
+    </mt-header>
     <div class="title">
       <!-- <h1>bb Talk</h1> -->
-      <h3>个人主页</h3>
+      <!-- <h3>个人主页</h3> -->
     </div>
     <div class="personCard">
-      <div class="head">
-        <div class="sculpture">
-          <el-upload
-            ref='upload'
-            class="avatar-uploader"
-            action="/api/system/user/profile/update/avatar/nos"
-            :show-file-list="false"
-            name="avatarfile"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="user.avatar" :src="user.avatar" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </div>
-        
-        <p id="name">{{msg.userName}}</p>
-      </div>
+      <!-- <div class="head"> -->
+      <!-- <div class="sculpture"> -->
+      <el-upload
+        ref="upload"
+        class="avatar-uploader"
+        action="/api/system/user/profile/update/avatar/nos"
+        :show-file-list="false"
+        name="avatarfile"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload"
+      >
+        <img v-if="user.avatar" :src="user.avatar" class="avatar" />
+
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <span id="name">{{msg.userName}}</span>
+      <!-- </div>
+      -->
+
+      <!-- </div> -->
     </div>
 
     <div class="permsg">
@@ -55,19 +61,18 @@ export default {
       // this.$forceUpdate()
       // this.$refs.upload.clearFiles();
       //更换头像让他立即显示出来，改变计算属性user的值达到更新
-             getPerson().then(resp => {
-     this.user.avatar = resp.avatar
-    });
+      getPerson().then(resp => {
+        this.user.avatar = resp.avatar;
+      });
       if (res.code == 0) {
         this.imageUrl = URL.createObjectURL(file.raw);
       }
-
     },
     goLast() {
-      this.$router.push({path:'/index'});
+      this.$router.push({ path: "/index" });
     },
     beforeAvatarUpload(file) {
-        this.$forceUpdate()
+      this.$forceUpdate();
       const isJPG = file.type === "image/jpeg";
       const isGIF = file.type === "image/gif";
       const isPNG = file.type === "image/png";
@@ -83,11 +88,11 @@ export default {
 
       return (isJPG || isBMP || isGIF || isPNG) && isLt5M;
     },
-     //退出登陆
-    exitLogin(){
-         exitBbTalk().then(res=>{
-           console.log('退出成功')
-         })
+    //退出登陆
+    exitLogin() {
+      exitBbTalk().then(res => {
+        console.log("退出成功");
+      });
     }
   },
   data() {
@@ -113,24 +118,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.head {
-  margin-top: 100px;
-  width: 100px;
-  height: 100px;
-  margin: 30px 10px;
-  border-radius: 50%;
 
-}
-.sculpture{
-  margin-left:100px;
-}
+// .sculpture{
+//   margin-left:100px;
+// }
 #name {
-  position: absolute;
-   /*right: 48%;*/
-    /*top: 31%;*/
-        right: 187px;
-    // top: 241px;
-    font-size: 26px;
+
+  /*right: 48%;*/
+  /*top: 31%;*/
+
+  // top: 241px;
+  font-size: 26px;
+  
 }
 .title > h1 {
   text-align: center;
@@ -156,17 +155,26 @@ export default {
   height: 100px;
   line-height: 100px;
   text-align: center;
+  justify-content: center;
 }
 .avatar {
   width: 100px;
   height: 100px;
   display: block;
-  margin:0 auto;
+ 
 }
 .personCard {
+
   border-radius: 10px;
   // margin-top:50px;
-     /*margin-top: 17%;*/
+  /*margin-top: 17%;*/
+      display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+  
+
 }
 .el-icon-back:before {
   content: "\E6EA";
@@ -182,7 +190,6 @@ export default {
   border-radius: 10px;
   p {
     margin: 8px;
-
   }
 }
 .avatar[data-v-4a6811ed] {
@@ -190,25 +197,30 @@ export default {
   height: 100px;
   display: block;
   border-radius: 50%;
-      /*margin-left: 19%;*/
+  /*margin-left: 19%;*/
+ 
+
 }
-a{
-    text-decoration: none;
-    color: black;
+a {
+  text-decoration: none;
+  // color: black;
 }
 a:-webkit-any-link {
-  color: black;
+  // color: black;
   cursor: pointer;
   text-decoration: none;
 }
-.function{
-  margin-top:15px;
-  margin-left:10px;
+.function {
+  margin-top: 15px;
+  margin-left: 10px;
   // border: 2px solid #7bc1f6;
   // box-shadow: -6px -1px 8px #7bc1f6;
   border-radius: 10px;
-  p{
-    margin-top:5px;
+  a:-webkit-any-link{
+    color:black;
+  }
+  p {
+    margin-top: 5px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="themeContent" style="height:100%;width:100%">
+  <div class="themeContent" >
     <!-- <ul class="themeList">
       <li v-for="item in rows" :key="item.name">
          
@@ -14,9 +14,10 @@
           <router-link
             :to="{path:'/themeArtList',query:{categoryId:item.categoryId,name:item.name}}"
           >
-            <p>{{item.name}}</p>
+           
           </router-link>
           <img :src="item.cover" alt class="themeImg" />
+           <p>{{item.name}}</p>
       </el-col>
     </el-row>
   </div>
@@ -47,6 +48,7 @@ export default {
     justify-content: center;
     flex-direction: column;
         align-items: center;
+        margin-top:20px;
 
 }
 a:-webkit-any-link {
@@ -54,9 +56,9 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 .themeContent {
-  height: calc(100vh - 148px);
+  height: calc(100vh - 110px);
   overflow: scroll;
-  margin-top:7%
+
 
  
 }
@@ -67,9 +69,8 @@ p {
   height: 5px;
   color: black;
   font-weight: bold;
-  //   position: absolute;
-  //   top:0;
-  //   left:0;
+  margin-top: 7px;
+
 }
 .themeImg {
   width: 100px;
