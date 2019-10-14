@@ -2,13 +2,14 @@
   <div>
     <div class="el-icon-back" @click="goLast"></div>
     <div class="title">
-      <h1>bb Talk</h1>
+      <!-- <h1>bb Talk</h1> -->
       <h3>个人主页</h3>
     </div>
     <div class="personCard">
       <div class="head">
         <div class="sculpture">
           <el-upload
+            ref='upload'
             class="avatar-uploader"
             action="/api/system/user/profile/update/avatar/nos"
             :show-file-list="false"
@@ -21,7 +22,7 @@
           </el-upload>
         </div>
         
-        <p id="name">{{msg.loginName}}</p>
+        <p id="name">{{msg.userName}}</p>
       </div>
     </div>
 
@@ -36,10 +37,10 @@
         <p>我参与的 ></p>
       </router-link>
       <router-link to="/changePersonal">
-        <p>修改资料</p>
+        <p>修改资料 ></p>
       </router-link>
       <router-link to="/login">
-        <p>退出登陆</p>
+        <p @click="exitLogin()">退出登陆 ></p>
       </router-link>
     </div>
   </div>
@@ -47,27 +48,46 @@
 
 <script>
 import { getPerson } from "@/services/mine";
+import { exitBbTalk } from "@/services/index";
 export default {
   methods: {
     handleAvatarSuccess(res, file) {
+      // this.$forceUpdate()
+      // this.$refs.upload.clearFiles();
+      //更换头像让他立即显示出来，改变计算属性user的值达到更新
+             getPerson().then(resp => {
+     this.user.avatar = resp.avatar
+    });
       if (res.code == 0) {
         this.imageUrl = URL.createObjectURL(file.raw);
       }
+      
     },
     goLast() {
       this.$router.push({path:'/index'});
     },
     beforeAvatarUpload(file) {
+        this.$forceUpdate()
       const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isGIF = file.type === "image/gif";
+      const isPNG = file.type === "image/png";
+      const isBMP = file.type === "image/bmp";
+      const isLt5M = file.size / 1024 / 1024 < 10;
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+      if (!isJPG && !isGIF && !isPNG && !isBMP) {
+        this.$message.error("上传头像图片只能是 JPG/GIF/PNG/BMP格式!");
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+      if (!isLt5M) {
+        this.$message.error("上传头像图片大小不能超过 5MB!");
       }
-      return isJPG && isLt2M;
+     
+      return (isJPG || isBMP || isGIF || isPNG) && isLt5M;
+    },
+     //退出登陆
+    exitLogin(){
+         exitBbTalk().then(res=>{
+           console.log('退出成功')
+         })
     }
   },
   data() {
@@ -75,14 +95,14 @@ export default {
       msg: {}
     };
   },
+ 
   computed: {
     user() {
       return this.$store.state.user;
     }
   },
-  beforeCreate() {},
   created() {
-    if (!this.$store.state.islogin) {
+    if (!this.$store.state.islogin) {                             
       this.$router.push({ path: "/login" });
     }
     getPerson().then(res => {
@@ -107,7 +127,7 @@ export default {
 #name {
   position: absolute;
         right: 187px;
-    top: 241px;
+    // top: 241px;
     font-size: 26px;
 }
 .title > h1 {
@@ -143,7 +163,7 @@ export default {
 }
 .personCard {
   border-radius: 10px;
-  margin-top:50px;
+  // margin-top:50px;
 }
 .el-icon-back:before {
   content: "\E6EA";

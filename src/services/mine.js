@@ -22,6 +22,9 @@ function getPerson() {
             return res.data
         })
 }
+function checkIsLogin(){
+    return http.get('/api/login-user/info')
+}
 function getSendCodes(mobile) {
 
     return http.get(`/api/short-message/vcode/${mobile}`)
@@ -45,7 +48,7 @@ function registe(loginName,password,userName,phonenumber,code){
     formdata.append('userName',`${userName}`)
     formdata.append('phonenumber',`${phonenumber}`)
     formdata.append('code',`${code}`)
-    formdata.append("rememberMe",true)
+    // formdata.append("rememberMe",true)
     http.post('/api/registry',formdata)
 }
 function findPassword(loginName,password,phonenumber,code){
@@ -54,7 +57,7 @@ function findPassword(loginName,password,phonenumber,code){
     formdata.append('password',password)
     formdata.append('phonenumber',phonenumber)
     formdata.append('code',code)
-    formdata.append("rememberMe",true)
+    // formdata.append("rememberMe",true)
    return http.post('/api/password/forget',formdata)
 }
 function changePersonalMsg(userName,email,phonenumber){
@@ -63,7 +66,7 @@ function changePersonalMsg(userName,email,phonenumber){
     formdata.append('email',email)
     formdata.append('phonenumber',phonenumber)
    
-    formdata.append("rememberMe",true)
+    // formdata.append("rememberMe",true)
    return http.post('/api/system/user/profile/update',formdata)
 }
 export{
@@ -73,5 +76,6 @@ export{
     getPerson,
     registe,
     findPassword,
-    changePersonalMsg
+    changePersonalMsg,
+    checkIsLogin
 }

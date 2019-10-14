@@ -1,8 +1,8 @@
 <template>
   <div id="box">
     <mt-header title="帖子详情">
-      <router-link to="/" slot="left">
-        <mt-button icon="back">返回</mt-button>
+      <router-link to="" slot="left">
+        <mt-button icon="back" @click="goBack()">返回</mt-button>
       </router-link>
 
       <mt-button icon="more" slot="right"></mt-button>
@@ -30,7 +30,7 @@
         <p class="text">{{invitationDetails.intro}}</p>
 
         <div class="msgAreaBot">
-          <i class="el-icon-delete" @click="deleteMsg(invitationDetails)"></i>
+          <i class="el-icon-delete" @click="deleteMsg(invitationDetails.postsId)"></i>
           <i class="el-icon-chat-round" @click="goComment()">评论</i>
         </div>
       </div>
@@ -81,7 +81,8 @@ import {
   sendComment,
   sendRbComment,
   getRbCommentList,
-  deleteComment
+  deleteComment,
+  getInvitationDetails
 } from "@/services/index.js";
 export default {
   // ref只能在页面加载之后才能用
@@ -96,10 +97,14 @@ export default {
       input: "",
       isShow: true,
       commentId: "",
+      postsId: "",
       invitationDetails: ""
     };
   },
   methods: {
+    goBack(){
+      this.$router.go(-1)
+    },
     goComment() {
       this.$refs.commentInput.focus();
       this.isShow = true;
@@ -107,23 +112,17 @@ export default {
     sendAComent() {
       this.$forceUpdate();
       //调用发送评论的函数
-      sendComment(this.$route.query.invitationDetail.postsId, this.input).then(
-        res => {
-          //发送评论后刷新评论列表
-          getCommentContent(this.$route.query.invitationDetail.postsId).then(
-            res => {
-              this.comtentMsgList = res.rows;
-            }
-          );
-        }
-      );
-      //刷新请求帖子详情的页面
-      getCommentContent(this.$route.query.invitationDetail.postsId).then(
-        res => {
-          this.$forceUpdate();
+      sendComment(this.$route.query.postsId, this.input).then(res => {
+        //发送评论后刷新评论列表
+        getCommentContent(this.$route.query.postsId).then(res => {
           this.comtentMsgList = res.rows;
-        }
-      );
+        });
+      });
+      //刷新请求帖子详情的页面
+      getCommentContent(this.$route.query.postsId).then(res => {
+        this.$forceUpdate();
+        this.comtentMsgList = res.rows;
+      });
       this.input = "";
     },
     rbComment(commentId, item) {
@@ -148,39 +147,46 @@ export default {
     },
     sendARbComent() {
       //调用回复接口
-      sendRbComment(
-        this.$route.query.invitationDetail.postsId,
-        this.commentId,
-        this.input
-      ).then(res => {
-        if (res.code == 0) {
-          alert("回复成功");
-          this.input = "";
+      sendRbComment(this.$route.query.postsId, this.commentId, this.input).then(
+        res => {
+          if (res.code == 0) {
+            alert("回复成功");
+            this.input = "";
+          }
         }
-      });
+      );
     },
     //删除评论
     deleteComment(commentId) {
       this.$forceUpdate();
       deleteComment(commentId).then(res => {
         //删除成功后刷新评论列表
-        getCommentContent(this.$route.query.invitationDetail.postsId).then(
-          res => {
-            this.comtentMsgList = res.rows;
-          }
-        );
+        getCommentContent(this.$route.query.postsId).then(res => {
+          this.comtentMsgList = res.rows;
+        });
       });
     },
-    //删除帖子
-    deleteMsg(invitationDetails) {
-      console.log(invitationDetails);
+    // 删除帖子
+    deleteMsg(postsId) {
+      console.log(postsId);
+      deleteComment(postsId).then(res => {
+        if (res.code == 0) {
+          this.$router.push({ path: "/index" });
+          console.log("删除成功");
+        }
+      });
     }
   },
+
   created() {
-    this.invitationDetails = this.$route.query.invitationDetail;
-    console.log(this.$route.query.invitationDetail);
-    getCommentContent(this.$route.query.invitationDetail.postsId).then(res => {
+    this.postsId = this.$route.query.postsId;
+    console.log(this.$route.query.postsId);
+    getCommentContent(this.$route.query.postsId).then(res => {
       this.comtentMsgList = res.rows;
+    });
+    //请求帖子的详情
+    getInvitationDetails(this.postsId).then(res => {
+      this.invitationDetails = res.data;
     });
   }
 };
@@ -231,6 +237,7 @@ export default {
     img {
       border-radius: 50%;
       width: 50px;
+      height: 50px;
     }
   }
   #hoster {

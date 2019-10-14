@@ -62,7 +62,7 @@ export default {
   }
 }
 .mainList {
-  height: calc(100vh - 148px);
+  height: calc(100vh - 110px);
   overflow: scroll;
 }
 .picture{
