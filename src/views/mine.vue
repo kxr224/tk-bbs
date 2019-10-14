@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoading">
-    <div class="el-icon-back" @click="goLast"></div>
-  <div>
+   
+ 
      <mt-header title="个人主页">
       <router-link to="/index" slot="left">
         <mt-button icon="back">返回</mt-button>

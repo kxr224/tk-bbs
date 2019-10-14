@@ -11,13 +11,15 @@
     <div class="searchMain">
       <div class="history">
         <ul v-show="showHisory" class="historyList">
-          <li>搜索历史</li>
+          <li  v-show="showHisory">搜索历史</li>
+          <p class="el-icon-delete" @click="clearHis"></p>
           <li v-for="item in historySearch" :key="item.keyWord" @click="searchHis(item.keyWord)">
             <span class="el-icon-time"></span>
             {{item.keyWord}}
           </li>
 
         </ul>
+      
       </div>
       <div class="list" v-if="show">
         <ul class="showList" v-for="item in rows" :key="item.id">
@@ -48,15 +50,20 @@ export default {
   },
   watch: {
     inputMsg() {
-
-      if (this.inputMsg == "") {
+     if (this.inputMsg == "") {
         this.show = false;
+        this.showHisory=true
       } else {
         this.show = true;
+        this.showHisory=false
       }
     }
   },
   methods: {
+    clearHis(){
+     this.historySearch="",
+     localStorage.setItem("searchWord","[]")
+    },
     searchHis(keyWord) {
       this.inputMsg = keyWord;
       getSearchRes(this.inputMsg).then(res => {
