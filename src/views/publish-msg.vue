@@ -16,11 +16,11 @@
           @click="selectTopic(item.categoryId)"
         >{{item.name}}</span>
       </div>
-      <h4>请输入发布的内容:</h4>
+      <h4>分享帖子信息...</h4>
       <div id="msg">
-        <input id="msgTitle" placeholder=" 文章标题 :" v-model="title" type="text" />
+        <input id="msgTitle" placeholder="    拟个标题吧亲 ！" v-model="title" type="text" />
 
-        <textarea placeholder=" 文章内容 : " id="textarea" cols="50" rows="8" v-model="intro"></textarea>
+        <textarea placeholder="  亲 ， 来这儿bb " id="textarea" cols="50" rows="8" v-model="intro"></textarea>
         <el-upload
           class="avatar-uploader"
           action="/api/nos/upload/image"
@@ -32,9 +32,10 @@
           :headers="{'X-Requested-With':'XMLHttpRequest'}"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
+          <i id="backgroundPicture" v-else class="el-icon-picture avatar-uploader-icon"></i>
         </el-upload>
-        <span>添加图片</span>
+      
       </div>
       <div id="submit">
         <el-button type="success" icon="el-icon-check" round @click="publish()">发布</el-button>
@@ -110,7 +111,7 @@ export default {
   padding: 0;
 }
 #innerBox {
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - 100px);
 }
 #selectTopic {
@@ -131,11 +132,17 @@ h4 {
 #msg {
   text-align: center;
   border: 1px solid #ccc;
+  #backgroundPicture{
+    font-size: 120px;
+  }
   #msgTitle {
+    border-radius: 10px;
+    width: 95%;
     padding: 2px;
     border: 0;
     outline: none;
     border-bottom: 1px dashed #ccc;
+    margin-top: 15px;
     margin-bottom: 10px;
   }
 }
@@ -144,6 +151,9 @@ h4 {
   text-align: right;
 }
 #textarea {
+  padding: 2px;
+  border-radius: 10px;
+    width: 95%;
   outline: none;
   resize: none;
   border: 1px solid #ccc;
@@ -173,5 +183,8 @@ h4 {
 }
 .avatar-uploader-icon[data-v-02473fce] {
   background-color: #eee;
+}
+.avatar-uploader{
+  margin-top: 15px;
 }
 </style>

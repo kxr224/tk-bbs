@@ -59,11 +59,11 @@
     
             <mt-field label="验证码：" type="text" v-model="codes"></mt-field>
             
-    
+       <el-button type="info" round @click="register($event)">注册</el-button>
     
     
         </div>
-        <el-button type="info" round @click="register($event)">注册</el-button>
+     
     
     
     

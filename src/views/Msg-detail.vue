@@ -1,9 +1,9 @@
 <template>
   <div id="box">
     <mt-header title="帖子详情">
-      <router-link to="" slot="left">
-        <mt-button icon="back" @click="goBack()">返回</mt-button>
-      </router-link>
+      <!-- <router-link to="" > -->
+        <mt-button slot="left" icon="back" @click="goBack()">返回</mt-button>
+      <!-- </router-link> -->
 
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
@@ -30,7 +30,7 @@
         <p class="text">{{invitationDetails.intro}}</p>
 
         <div class="msgAreaBot">
-          <i class="el-icon-delete" @click="deleteMsg(invitationDetails.postsId)"></i>
+          <i v-if="showList(invitationDetails.userId)" class="el-icon-delete" @click="deleteMsg(invitationDetails.postsId)"></i>
           <i class="el-icon-chat-round" @click="goComment()">评论</i>
         </div>
       </div>
@@ -177,9 +177,18 @@ export default {
           console.log("删除成功");
         }
       });
+    },
+    showList(userId){
+           if(userId==this.userId){
+             return true
+           }
     }
   },
-
+ computed: {
+   userId(){
+     return this.$store.state.user.userId
+   }
+ },
   created() {
     this.postsId = this.$route.query.postsId;
     console.log(this.$route.query.postsId);
