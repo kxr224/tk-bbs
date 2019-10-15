@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <mt-tabbar id="tabBar" v-model="selected">
-      <mt-tab-item id="index" @click.native.capture="goIndex">首页</mt-tab-item>
+      <mt-tab-item id="index" class="el-icon-s-home" @click.native.capture="goIndex"></mt-tab-item>
 
       <router-link to="/publishMsg">
         <div id="add">+</div>
       </router-link>
 
-      <mt-tab-item id="login" @click.native.capture="goMine">我的</mt-tab-item>
+      <mt-tab-item id="login" class="el-icon-user-solid" @click.native.capture="goMine"></mt-tab-item>
     </mt-tabbar>
 
     <router-view />
@@ -101,6 +101,22 @@ a:-webkit-any-link {
   color: -webkit-link;
   cursor: pointer;
   text-decoration: none;
-  background:#e4e7ed;
+  background:#26a2ff;
+}
+.mint-tabbar > .mint-tab-item.is-selected{
+background-color: #eaeaea;
+    color: #26a2ff;
+    padding: 14px 0;
+    font-size: 30px;
+}
+.mint-tab-item {
+    display: block;
+    padding: 7px 0;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    font-size: 30px;
+    padding: 14px 0;
+    text-decoration: none;
 }
 </style>
