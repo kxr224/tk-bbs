@@ -91,7 +91,7 @@ export default {
   width: 58.8px;
   height: 58.8px;
   text-align: center;
-  line-height: 53px;
+  line-height: 58px;
   color: white;
 }
 .router-link-exact-active {
