@@ -12,12 +12,12 @@
       <div class="history">
         <ul v-show="showHisory" class="historyList">
           <li  v-show="showHisory">搜索历史</li>
-          <p class="el-icon-delete" @click="clearHis"></p>
+         
           <li v-for="item in historySearch" :key="item.keyWord" @click="searchHis(item.keyWord)">
             <span class="el-icon-time"></span>
             {{item.keyWord}}
           </li>
-
+          <p class="el-icon-delete" @click="clearHis"></p>
         </ul>
       
       </div>
@@ -226,5 +226,9 @@ export default {
   }
 }
   }
+}
+.el-icon-search:before {
+    content: "\E778";
+    background: #f2f6fc;
 }
 </style>
