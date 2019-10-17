@@ -28,9 +28,10 @@
         </mt-field>
     
         <mt-field  label="验证码：" type="text" v-model="codes"></mt-field>
-      </div>
-        <el-button id="button" type="info" round @click="findPassword()">找回密码</el-button>
+         <el-button id="button" type="info" round @click="findPassword()">找回密码</el-button>
     
+      </div>
+       
 
     
     </div>

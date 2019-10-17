@@ -93,6 +93,10 @@ export default {
               position: "top-left"
             });
             // this.$router.push({path:'/'})
+            this.categoryId=""
+            this.title=''
+            this.intro=''
+            this.imageUrl=''
           }
         }
       );

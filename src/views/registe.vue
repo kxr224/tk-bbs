@@ -51,7 +51,7 @@
     
             <mt-field label="手机号：" type="tel" v-model="phone" @blur.native.capture='checkPhone()'>
     
-                <el-button id="sendCode" plain @click="sendCode()">{{idCode}}</el-button>
+                <el-button :disabled="isClick" id="sendCode" plain @click="sendCode()">{{idCode}}</el-button>
     
                 <span class="tips">{{msgPhone}}</span>
     
@@ -59,7 +59,7 @@
     
             <mt-field label="验证码：" type="text" v-model="codes"></mt-field>
             
-       <el-button type="info" round @click="register($event)">注册</el-button>
+       <el-button  type="info" round @click="register($event)">注册</el-button>
     
     
         </div>
@@ -87,7 +87,8 @@ export default {
             msgPhone: '',
             codes: '',
             introduction: '',
-            idCode: '发送验证码'
+            idCode: '发送验证码',
+            isClick:false,
         }
     },
     methods: {
@@ -141,7 +142,10 @@ export default {
         },
         register() {
             registe(this.username, this.password, this.name, this.phone, this.codes).then(res => {
+                console.log(res)
+                console.log('注册')
                 if (res.code == 0) {
+                    console.log('跳转成功')
                     this.$router.push({ path: '/login' })
                 }
             })
@@ -149,13 +153,14 @@ export default {
 
         },
         sendCode() {
+              this.isClick=true
             if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.phone)) {
                 getSendCodes(this.phone)
                 var time = 60
                 const timer = setInterval(() => {
                     time--
                     if (time == 0) {
-
+                         this.isClick=false
                         this.idCode = '再试一次'
                         clearInterval(timer)
                     } else {

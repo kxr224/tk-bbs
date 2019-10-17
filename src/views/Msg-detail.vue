@@ -2,7 +2,7 @@
   <div id="box">
     <mt-header title="帖子详情">
       <!-- <router-link to="" > -->
-        <mt-button slot="left" icon="back" @click="goBack()">返回</mt-button>
+      <mt-button slot="left" icon="back" @click="goBack()">返回</mt-button>
       <!-- </router-link> -->
 
       <mt-button icon="more" slot="right"></mt-button>
@@ -30,7 +30,11 @@
         <p class="text">{{invitationDetails.intro}}</p>
 
         <div class="msgAreaBot">
-          <i v-if="showList(invitationDetails.userId)" class="el-icon-delete" @click="deleteMsg(invitationDetails.postsId)"></i>
+          <i
+            v-if="showList(invitationDetails.userId)"
+            class="el-icon-delete"
+            @click="deleteMsg(invitationDetails.postsId)"
+          ></i>
           <i class="el-icon-chat-round" @click="goComment()">评论</i>
         </div>
       </div>
@@ -98,12 +102,13 @@ export default {
       isShow: true,
       commentId: "",
       postsId: "",
-      invitationDetails: ""
+      invitationDetails: "",
+      selectedComment: null
     };
   },
   methods: {
-    goBack(){
-      this.$router.go(-1)
+    goBack() {
+      this.$router.go(-1);
     },
     goComment() {
       this.$refs.commentInput.focus();
@@ -127,18 +132,19 @@ export default {
       this.input = "";
     },
     rbComment(commentId, item) {
-       this.$forceUpdate();
+      this.selectedComment = item;
+
+      this.$forceUpdate();
       this.$refs.commentInput.focus();
       this.isShow = false;
       this.commentId = commentId;
       //再次点击清除这个列表，达到再次点击关闭回复这个小页面
       if (item.rbCommentList) {
-       
         item.rbCommentList = "";
       } else {
         //调用回复列表的接口
         getRbCommentList(commentId).then(res => {
-        this.$forceUpdate();        
+          this.$forceUpdate();
           if (res.code == 0) {
             item.rbCommentList = res.rows;
 
@@ -154,6 +160,15 @@ export default {
           if (res.code == 0) {
             alert("回复成功");
             this.input = "";
+            //调用回复列表的接口
+            getRbCommentList(this.commentId).then(res => {
+              this.$forceUpdate();
+              if (res.code == 0) {
+                this.selectedComment.rbCommentList = res.rows;
+
+                // this.comtentMsgList = {...this.comtentMsgList}
+              }
+            });
           }
         }
       );
@@ -170,28 +185,25 @@ export default {
     },
     // 删除帖子
     deleteMsg(postsId) {
-      console.log(postsId);
       deleteComment(postsId).then(res => {
         if (res.code == 0) {
           this.$router.push({ path: "/index" });
-          console.log("删除成功");
         }
       });
     },
-    showList(userId){
-           if(userId==this.userId){
-             return true
-           }
+    showList(userId) {
+      if (userId == this.userId) {
+        return true;
+      }
     }
   },
- computed: {
-   userId(){
-     return this.$store.state.user.userId
-   }
- },
+  computed: {
+    userId() {
+      return this.$store.state.user.userId;
+    }
+  },
   created() {
     this.postsId = this.$route.query.postsId;
-    console.log(this.$route.query.postsId);
     getCommentContent(this.$route.query.postsId).then(res => {
       this.comtentMsgList = res.rows;
     });
@@ -307,9 +319,10 @@ export default {
     border: 1px solid #ccc;
     box-shadow: 2px 2px #ccc;
     border-radius: 10px;
-        background: #f5deb342;
+    background: #f5deb342;
     img {
       width: 25px;
+      height: 25px;
       border-radius: 50%;
     }
     span {
@@ -320,14 +333,15 @@ export default {
       font-size: 13px;
     }
     .rbCommentCard {
-    text-align: left;
-    margin: 0 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    padding: 5px;
+      text-align: left;
+      margin:10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      padding: 5px;
       img {
         width: 20px;
+        height: 20px;
         border-radius: 50%;
       }
       span {

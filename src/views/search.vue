@@ -102,7 +102,7 @@ export default {
       getSearchRes(this.inputMsg).then(res => {
         return (this.rows = res.rows);
       });
-    },
+    },               
     //  showResult(){
     //     getSearchRes(inputMsg).then(res=>{
     //         return rows=res.rows
