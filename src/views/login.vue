@@ -6,12 +6,12 @@
     </mt-field>
 
     <mt-field
-      label="密码"
-      placeholder="请输入密码"
-      type="password"
-      v-model="password"
-      @keyup.native.capture.enter="log"
-      @blur.native.capture="checkPassword"
+            label="密码"
+            placeholder="请输入密码"
+            type="password"
+            v-model="password"
+            @keyup.native.capture.enter="log"
+            @blur.native.capture="checkPassword"
     >
       <span class="tip">{{msgpassword}}</span>
     </mt-field>
@@ -41,7 +41,7 @@ export default {
     };
   },
   computed: {
-    
+
   },
   methods: {
     checkName() {
