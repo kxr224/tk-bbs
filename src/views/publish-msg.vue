@@ -7,15 +7,6 @@
             <mt-button icon="more" slot="right"></mt-button>
         </mt-header>
         <div class="container">
-            <!--            <div id="selectTopic">-->
-            <!--        <span-->
-            <!--                class="topic"-->
-            <!--                :style="{'color':item.categoryId==categoryId?'red':'green'}"-->
-            <!--                v-for="(item,index) in list"-->
-            <!--                :key="index"-->
-            <!--                @click="selectTopic(item.categoryId)"-->
-            <!--        >{{item.name}}</span>-->
-            <!--            </div>-->
             <h4 style="padding-bottom: 5px">类型</h4>
 
             <div class="selected-topic">
@@ -61,26 +52,6 @@
                     </el-upload>
                 </div>
             </div>
-            <!--            <div id="msg">-->
-            <!--                <input id="msgTitle" placeholder="    拟个标题吧亲 ！" v-model="title" type="text" />-->
-
-            <!--                <textarea placeholder="  亲 ， 来这儿bb " id="textarea" cols="50" rows="8" v-model="intro"></textarea>-->
-            <!--                <el-upload-->
-            <!--                        class="avatar-uploader"-->
-            <!--                        action="/api/nos/upload/image"-->
-            <!--                        name="file"-->
-            <!--                        :data="{fileUseForEnum:'BBS'}"-->
-            <!--                        :show-file-list="false"-->
-            <!--                        :on-success="handleAvatarSuccess"-->
-            <!--                        :before-upload="beforeAvatarUpload"-->
-            <!--                        :headers="{'X-Requested-With':'XMLHttpRequest'}"-->
-            <!--                >-->
-            <!--                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />-->
-            <!--                    &lt;!&ndash; <i v-else class="el-icon-plus avatar-uploader-icon"></i> &ndash;&gt;-->
-            <!--                    <i id="backgroundPicture" v-else class="el-icon-picture avatar-uploader-icon"></i>-->
-            <!--                </el-upload>-->
-
-            <!--            </div>-->
             <div id="submit">
                 <el-button type="success" icon="el-icon-check" round @click="publish()">发布</el-button>
             </div>
@@ -156,11 +127,6 @@
     };
 </script>
 <style lang="less" scoped>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
     .container {
         background-color: #f8f8f8;
         overflow-y: scroll;
