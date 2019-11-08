@@ -14,6 +14,14 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false
 Vue.use(MintUI)
 Vue.use(ElementUI)
+// 按需引入vant-ui
+// import 'vant/lib/index.css';
+// import { Field,Cell, CellGroup } from 'vant';
+// Vue.use(Cell).use(CellGroup).use(Field);
+
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant);
 
 new Vue({
   router,
